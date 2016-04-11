@@ -1,0 +1,401 @@
+
+
+
+################
+file description
+
+
+lab0.c: this is the source file for this prokect
+		we can use it by make
+		./lab0 
+			will copy from stdin to stdout
+		./lab0 --input=1.txt
+			will copy from file 1.txt to stdout
+		./lab0 --output=2.txt
+			will copy from stdin to file 2.txt
+		./lab0 --input=1.txt output=2.txt
+			will copy from 1,txt to 2.txt
+		./lab0 --segfault 
+			will introduce a segmenttion fault
+		./lab0 --segfault --catch
+			will catch the segmantation error
+
+
+makefile :
+		make 
+			compile the .c file and crate executable under the default condition
+		make clean
+			delete the executable
+		make check
+			check is this file is likely to be compiled suscessufully
+		make dist
+			create the tarball
+
+
+
+screen1.jpg:
+		showing the backtrace info under gdb
+
+
+
+screen2.jpg:
+		showing that the null pointer is actually null
+
+
+README:
+		is the file u are currently reading
+
+
+
+
+
+
+
+REFEENCE:
+
+
+8:53 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwit4bzMivTLAhUBn4MKHbOHAvsQFggjMAE&url=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F14659147%2Fhow-to-print-pointer-content-in-gdb&usg=AFQjCNFpKMfZd4QC4Ve9ruHgknDSpROffw&sig2=5sKt4DYoS_JfX06s5IHbCw&cad=rjt
+www.google.com
+
+
+8:52 PM
+Debugging with GDB - Examining Data
+ftp.gnu.org
+
+
+8:52 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwit4bzMivTLAhUBn4MKHbOHAvsQFggdMAA&url=http%3A%2F%2Fftp.gnu.org%2Fold-gnu%2FManuals%2Fgdb%2Fhtml_chapter%2Fgdb_9.html&usg=AFQjCNE6t5ltn4OXvKOMXYNDanssXJY2mg&sig2=G4bonDOAznz3YnY1vIK5sg&cad=rjt
+www.google.com
+
+
+8:52 PM
+how to inspect a pointer in gdb - Google Search
+www.google.com
+
+
+8:48 PM
+Fetching a remote - User Documentation
+help.github.com
+
+
+8:48 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwikkYnKifTLAhVnt4MKHZ6IAW0QFggdMAA&url=https%3A%2F%2Fhelp.github.com%2Farticles%2Ffetching-a-remote%2F&usg=AFQjCNEtsKuJAeGviRrnq1ExRg1KGabuQQ&sig2=IrqaA8E5YjHmP5H2wXqQ0w&cad=rjt
+www.google.com
+
+
+8:48 PM
+how to pull from github - Google Search
+www.google.com
+
+
+8:47 PM
+taoxiang1995/cs111
+github.com
+
+
+8:47 PM
+Issues · taoxiang1995/cs111
+github.com
+
+
+8:44 PM
+Create a New Repository
+github.com
+
+
+8:44 PM
+taoxiang1995
+github.com
+
+
+8:44 PM
+
+taoxiang1995
+github.com
+
+
+8:43 PM
+Changing a remote's URL - User Documentation
+help.github.com
+
+
+8:43 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwjCm9u8iPTLAhWKtoMKHS_8Cp4QFggfMAE&url=https%3A%2F%2Fhelp.github.com%2Farticles%2Fchanging-a-remote-s-url%2F&usg=AFQjCNGZte4B4GnhT4ZEJk-VKY1kf9Z0VQ&sig2=tccaifP6YXhqhtq9at9ezA&cad=rjt
+www.google.com
+
+
+8:43 PM
+how to set git remote origin - Google Search
+www.google.com
+
+
+8:42 PM
+Pushing to a remote - User Documentation
+help.github.com
+
+
+8:42 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwiMlrOliPTLAhWpu4MKHfrlB1UQFggfMAE&url=https%3A%2F%2Fhelp.github.com%2Farticles%2Fpushing-to-a-remote%2F&usg=AFQjCNG9AXcVMVVUjxY0yFToHbtiGPWa_Q&sig2=3OnK9x0oSh31L6vinNTVwA&cad=rjt
+www.google.com
+
+
+8:42 PM
+git push origin master - Google Search
+www.google.com
+
+
+8:40 PM
+(13) Shaun Liu - 消息
+www.facebook.com
+
+
+8:39 PM
+c++ - "please check gdb is codesigned - see taskgated(8)" - How to get gdb installed with homebrew code signed? - Stack Overflow
+stackoverflow.com
+
+
+8:39 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwib5pfZh_TLAhWJsIMKHaHJBPoQFggcMAA&url=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F18423124%2Fplease-check-gdb-is-codesigned-see-taskgated8-how-to-get-gdb-installed-w&usg=AFQjCNE4yX3nAa5DAyp2JEi0w1zJdRaQ2A&sig2=mIOKj1I30RJ_PVsCRo98xg&bvm=bv.118443451,d.amc
+www.google.com
+
+
+8:39 PM
+Unable to find Mach task port for process-id . (please check gdb is codesigned - see taskgated(8)) - Google Search
+www.google.com
+
+
+8:39 PM
+Unable to find Mach task port for process-id 5199: (os/kern) failure (0x5). (please check gdb is codesigned - see taskgated(8)) - Google Search
+www.google.com
+
+
+8:38 PM
+gdb Tutorial
+www.cs.cmu.edu
+
+
+8:38 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=6&ved=0ahUKEwjWhteAh_TLAhUDuoMKHbiABCMQFgg_MAU&url=https%3A%2F%2Fwww.cs.cmu.edu%2F~gilpin%2Ftutorial%2F&usg=AFQjCNHz43Q-jbT3DrT4305J00nUGttErg&sig2=D8zFGMO-MDZ9GGaVqXx1Ew&cad=rjt
+www.google.com
+
+
+8:38 PM
+gdb QuickStart
+web.eecs.umich.edu
+
+
+8:38 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&ved=0ahUKEwjWhteAh_TLAhUDuoMKHbiABCMQFggvMAM&url=http%3A%2F%2Firl.eecs.umich.edu%2Fjamin%2Fpointers%2FgdbQS.html&usg=AFQjCNGCD5lD9S6RuZW00dQn7zGzQ7lr2g&sig2=Nj21IZxj3-owJUBGAX1wMQ&cad=rjt
+www.google.com
+
+
+8:37 PM
+How to Debug Using GDB
+cs.baylor.edu
+
+
+8:37 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&ved=0ahUKEwjWhteAh_TLAhUDuoMKHbiABCMQFggpMAI&url=http%3A%2F%2Fcs.baylor.edu%2F~donahoo%2Ftools%2Fgdb%2Ftutorial.html&usg=AFQjCNE_QEPdNTMQWEiQv83YrCe0R-gk8A&sig2=3gG6QgRshD4kjrCJ55O7_w&cad=rjt
+www.google.com
+
+
+8:36 PM
+How to Debug C Program using gdb in 6 Simple Steps
+www.thegeekstuff.com
+
+
+8:36 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwjWhteAh_TLAhUDuoMKHbiABCMQFggjMAE&url=http%3A%2F%2Fwww.thegeekstuff.com%2F2010%2F03%2Fdebug-c-program-using-gdb%2F&usg=AFQjCNE_QTOwdR_IXu73OeaTFTJspdbSwQ&sig2=cVEcRxlZa4QhCT_I2O2Qew&cad=rjt
+www.google.com
+
+
+8:36 PM
+how to run aprogram in gdb - Google Search
+www.google.com
+
+
+8:36 PM
+Debugging with GDB - Backtrace
+ftp.gnu.org
+
+
+8:36 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&ved=0ahUKEwi099HuhvTLAhXCnIMKHaEuBBAQFgglMAI&url=http%3A%2F%2Fftp.gnu.org%2Fold-gnu%2FManuals%2Fgdb%2Fhtml_node%2Fgdb_42.html&usg=AFQjCNH-pcdXzYHYUBwUTJ9IbJxatz_0WA&sig2=bGy3FSgeFggu6yaIBNFxfg&cad=rjt
+www.google.com
+
+
+8:36 PM
+backtrace gdb - Google Search
+www.google.com
+
+
+8:35 PM
+debugging - How can one grab a stack trace in C? - Stack Overflow
+stackoverflow.com
+
+
+8:35 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&ved=0ahUKEwjt5qrhhvTLAhWouIMKHehoCrEQFggxMAM&url=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F105659%2Fhow-can-one-grab-a-stack-trace-in-c&usg=AFQjCNEzKHeYP_zaVSsTBIL6n56YD0ntQQ&sig2=I8J7T_ntueanq2dXY16LUA&cad=rjt
+www.google.com
+
+
+8:35 PM
+get a stack backtrace - Google Search
+www.google.com
+
+
+8:33 PM
+Debugging Options - Using the GNU Compiler Collection (GCC)
+gcc.gnu.org
+
+
+8:33 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwi2yLyghvTLAhUKk4MKHehNAVYQFggjMAE&url=https%3A%2F%2Fgcc.gnu.org%2Fonlinedocs%2Fgcc-3.4.5%2Fgcc%2FDebugging-Options.html&usg=AFQjCNFyFzKwr7b0PX251iWbucM9upyEnw&sig2=kFBYJootzi2yDvzW8hxyRA&bvm=bv.118443451,d.amc
+www.google.com
+
+
+8:33 PM
+Debugging Options - Using the GNU Compiler Collection (GCC)
+gcc.gnu.org
+
+
+8:33 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwi2yLyghvTLAhUKk4MKHehNAVYQFggcMAA&url=https%3A%2F%2Fgcc.gnu.org%2Fonlinedocs%2Fgcc%2FDebugging-Options.html&usg=AFQjCNF-8TvEkL_p85Cu_5P4Nz9VexUnfA&sig2=VRxWCHtT5L5wRj8QnfhIrQ&bvm=bv.118443451,d.amc
+www.google.com
+
+
+8:33 PM
+compile with gdb symbols - Google Search
+www.google.com
+
+
+8:33 PM
+gcc -g option flag (debug)
+www.rapidtables.com
+
+
+8:33 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=9&sqi=2&ved=0ahUKEwj_-oCIhvTLAhVEl4MKHdw7CNAQFghWMAg&url=http%3A%2F%2Fwww.rapidtables.com%2Fcode%2Flinux%2Fgcc%2Fgcc-g.htm&usg=AFQjCNEUXmZWo6VDHVroSq5YoXWvrC4byg&sig2=Aa_ymZxtN0aQcoYpToC65Q&bvm=bv.118443451,d.amc
+www.google.com
+
+
+8:32 PM
+Compilation - Debugging with GDB
+sourceware.org
+
+
+8:32 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&sqi=2&ved=0ahUKEwj_-oCIhvTLAhVEl4MKHdw7CNAQFggsMAI&url=https%3A%2F%2Fsourceware.org%2Fgdb%2Fonlinedocs%2Fgdb%2FCompilation.html&usg=AFQjCNHA3ZWiDv6kZQI9oxGUiugl9e9STA&sig2=LvuHeW4uad8QHyAMz98zfA&bvm=bv.118443451,d.amc
+www.google.com
+
+
+8:32 PM
+Debugging with GDB
+www.delorie.com
+
+
+8:32 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&sqi=2&ved=0ahUKEwj_-oCIhvTLAhVEl4MKHdw7CNAQFggcMAA&url=http%3A%2F%2Fwww.delorie.com%2Fgnu%2Fdocs%2Fgdb%2Fgdb_17.html&usg=AFQjCNFLL97kMA3WlTJbUCHJRV2DHKv5IQ&sig2=ll1vxNnF5sUkstnes00QKg&bvm=bv.118443451,d.amc
+www.google.com
+
+
+8:32 PM
+how to compile with gdb option - Google Search
+www.google.com
+
+
+8:32 PM
+how to make a tarball unix example - Google Search
+www.google.com
+
+
+8:31 PM
+gcc -g - Google Search
+www.google.com
+
+
+8:26 PM
+Installing GDB on OS X Mavericks – Neil Traft
+ntraft.com
+
+
+8:26 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwje4J_jhPTLAhVClYMKHaAPCjMQFggdMAA&url=http%3A%2F%2Fntraft.com%2Finstalling-gdb-on-os-x-mavericks%2F&usg=AFQjCNHKIg97sCYMcEi1lnYMka17P4wMgg&sig2=ew9O-1udHBtJ-I5SrKDmsg&cad=rjt
+www.google.com
+
+
+8:26 PM
+gdb install mac - Google Search
+www.google.com
+
+
+8:12 PM
+18 Tar Command Examples in Linux
+www.tecmint.com
+
+
+8:12 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjXgI-7gfTLAhVsl4MKHYGVDdUQFggcMAA&url=http%3A%2F%2Fwww.tecmint.com%2F18-tar-command-examples-in-linux%2F&usg=AFQjCNEtaAzZkRiRXaV6dNt7zhdcgRZhgA&sig2=MRcIUFI46WS5c2xzoZCRuQ&bvm=bv.118443451,d.amc
+www.google.com
+
+
+8:11 PM
+how to make a tarball unix example - Google Search
+www.google.com
+
+
+8:11 PM
+How to make a tar archive
+infohost.nmt.edu
+
+
+8:11 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiZ7Ji1gfTLAhWrmoMKHcQBDqAQFggdMAA&url=http%3A%2F%2Finfohost.nmt.edu%2Ftcc%2Fhelp%2Funix%2Ftar_build.html&usg=AFQjCNGThASKoSIfVpMhWSvbwDU-gfCA1w&sig2=Fa5mCQPDyerQ9MzHUxp3GA&cad=rjt
+www.google.com
+
+
+8:11 PM
+how to make a tarball unix - Google Search
+www.google.com
+
+
+8:10 PM
+automake: Basics of Distribution
+www.gnu.org
+
+
+8:10 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjjjriYgfTLAhVCn4MKHUCBD3kQFggfMAA&url=https%3A%2F%2Fwww.gnu.org%2Fsoftware%2Fautomake%2Fmanual%2Fhtml_node%2FBasics-of-Distribution.html&usg=AFQjCNEhgUQ8zpvAkPkpgQVe3MsUNhp3BQ&sig2=Poda5QDEDVKtlfP4zthfSw&cad=rjt
+www.google.com
+
+
+8:10 PM
+dist ... build the distribution tarball. make file - Google Search
+www.google.com
+
+
+8:10 PM
+GNU make: Complex Makefile
+www.gnu.org
+
+
+8:10 PM
+https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=0ahUKEwjDjoeHgfTLAhXBn4MKHUVDBPkQFggkMAE&url=https%3A%2F%2Fwww.gnu.org%2Fs%2Fmake%2Fmanual%2Fhtml_node%2FComplex-Makefile.html&usg=AFQjCNHOMIwCDrL3DnF7GHc3JjAMenVLxA&sig2=BUJqvTend3OuNKTt6iXK1w&cad=rjt
+www.google.com
+
+
+8:10 PM
+makefile dist - Google Search
+www.google.com
+
+
+8:09 PM
+CS111 - Project 0: Warm-Up
+web.cs.ucla.edu
+
+
+8:09 PM
+
+UCLA CS111 Schedule: Lectures, Reading, Quizes, Exams, Projects
+web.cs.ucla.edu
