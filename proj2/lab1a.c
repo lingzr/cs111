@@ -108,7 +108,7 @@ int main (int argc, char* argv[])
 			pthread_create(&thread1, NULL, &thread_func, &pipe_from_shell[0]);
 
 			//main thread, read from keyboard and write to stdout and forward to shell
-			char buf[1218];
+			char buf[128];
 			int size = 0;
 
 
@@ -126,6 +126,15 @@ int main (int argc, char* argv[])
 					kill(pid, SIGHUP);
 					reset_input_mode();
 					exit (0);
+				}
+				if (buf[0] ==13 || buf[0] ==10)
+				{
+					int char13 =13;
+					int char10 =10;
+					write(1, &char13, size);
+					write(1, &char10, size);
+					write (pipe_to_shell[1], &char10, size);
+
 				}
 			}
 
@@ -169,7 +178,7 @@ void* thread_func (void *fd){
 	//upon receiving EOF from the shell
 	if (buf[0]==4){
 		//restore the terminal mode and end;
-		reset_input_mode();
+		//reset_input_mode();
 		exit(1);
 	}
 	else{
@@ -194,7 +203,7 @@ void set_input_mode (void)
 
 
     	//set the terminal mode
-    	tcgetattr (0, &tattr);
+    	tcgetattr (0, &save_attr);
 
 
 		
@@ -230,7 +239,8 @@ void exit_handler (void)
 	int status;
 	waitpid (pid, &status, 0);
 	//if (WIFEXITED(status))
-	printf("exit with status: %d", status );
+	printf("exit with status: %d\n", status );
+	reset_input_mode();
 }
 
 
