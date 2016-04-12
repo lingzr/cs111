@@ -215,6 +215,7 @@ void* thread_func (void *fd){
 					
 	}
 
+	return NULL;
 
 }
 
