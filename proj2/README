@@ -1,0 +1,14 @@
+
+included files:
+
+lab1a.c:
+	the source file of this project.
+	usage:
+	./lab1a --shell :passing input output between two processes.
+	./lab1a: character at a time
+
+makefile:
+	build up the source file to lab1a executable
+
+
+I'd like to use a slip day
