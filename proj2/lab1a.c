@@ -215,7 +215,7 @@ void pipe_handler(int signum)
 {
 	//restore the terminal mode
 	reset_input_mode();
-	printf("mother fucker!" );
+	//printf("mother fucker!" );
 	exit (1);
 
 }
@@ -230,7 +230,7 @@ void exit_handler (void)
 	int status;
 	waitpid (pid, &status, 0);
 	//if (WIFEXITED(status))
-		printf("exit with status: %d", status );
+	printf("exit with status: %d", status );
 }
 
 
