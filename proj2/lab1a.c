@@ -113,10 +113,9 @@ int main (int argc, char* argv[])
 
 
 
-			while ((size = read(0, buf, 128))>0)
+			while ((size = read(0, buf, 1))>0)
 			{
-				write (1, buf, size);
-				write (pipe_to_shell[1], buf, size);
+				
 				if (buf[0]==4)
 				{
 					//reach the edn of the file, call the EOF_handler
@@ -127,14 +126,19 @@ int main (int argc, char* argv[])
 					reset_input_mode();
 					exit (0);
 				}
-				if (buf[0] ==13 || buf[0] ==10)
+				else if (buf[0] ==13 || buf[0] ==10)
 				{
-					int char13 =13;
-					int char10 =10;
-					write(1, &char13, size);
-					write(1, &char10, size);
-					write (pipe_to_shell[1], &char10, size);
+					char cr =13;
+					char lf =10;
+					write(1, &cr, size);
+					write(1, &lf, size);
+					write (pipe_to_shell[1], &lf, size);
 
+				}
+				else
+				{
+					write (1, buf, size);
+					write (pipe_to_shell[1], buf, size);
 				}
 			}
 
@@ -149,11 +153,34 @@ int main (int argc, char* argv[])
     else
     {
 
-		char buf[1218];
+		char buf[128];
 		int size = 0;
 
 		while ((size = read(0, buf, 128))>0){
-			write (1, buf, size);
+			if (buf[0] ==13 || buf[0] ==10)
+				{
+					char cr =13;
+					char lf =10;
+					write(1, &cr, size);
+					write(1, &lf, size);
+					
+
+				}
+			else if (buf[0]==4)
+				{
+					//reach the edn of the file, call the EOF_handler
+					//printf("mother fucker!!\n");
+					//close (pipe_to_shell[1]);
+					//close (pipe_from_shell[0]);
+					//kill(pid, SIGHUP);
+					reset_input_mode();
+					exit (0);
+				}
+			else
+			{
+				write (1, buf, size);
+			}
+			
 		}
 
     }
@@ -179,6 +206,7 @@ void* thread_func (void *fd){
 	if (buf[0]==4){
 		//restore the terminal mode and end;
 		//reset_input_mode();
+		//printf("mother\n");
 		exit(1);
 	}
 	else{
@@ -224,7 +252,7 @@ void pipe_handler(int signum)
 {
 	//restore the terminal mode
 	reset_input_mode();
-	//printf("mother fucker!" );
+	//printf("mother fucker" );
 	exit (1);
 
 }
@@ -239,7 +267,7 @@ void exit_handler (void)
 	int status;
 	waitpid (pid, &status, 0);
 	//if (WIFEXITED(status))
-	printf("exit with status: %d\n", status );
+	printf("exit status: %d\n", status );
 	reset_input_mode();
 }
 
