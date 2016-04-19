@@ -19,7 +19,7 @@ struct termios save_attr;
     */
 
     
-int max_size = 100;
+int max_size = 10000;
 char *buffer_received;
 char *buffer_sent;
 int buffer_received_ptr = 0;
