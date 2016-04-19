@@ -76,7 +76,7 @@ strlen(password));
   i=mcrypt_generic_init( td, key, keysize, IV);
   if (i<0) {
      mcrypt_perror(i);
-     return 1;
+     
   }
   return td;
 }
