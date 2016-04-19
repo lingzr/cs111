@@ -5,6 +5,7 @@
 #include <netdb.h> 
 #include <stdlib.h>
 #include <strings.h>
+#include <string.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <termios.h>
@@ -62,9 +63,7 @@ strlen(password));
 
 
    td = mcrypt_module_open("twofish", NULL, "cfb", NULL);
-  if (td==MCRYPT_FAILED) {
-     return 1;
-  }
+  
   IV = malloc(mcrypt_enc_get_iv_size(td));
 /* Put random data in IV. Note these are not real random data,
  * consider using /dev/random or /dev/urandom.
