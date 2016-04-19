@@ -135,7 +135,7 @@ void* thread_func (void *fd){
              max_size = max_size*2;
         }
 
-        printf("%c\n", buf[0]);
+       
         buffer_received[buffer_received_ptr] = buf[0];
         buffer_received_ptr++;
         if (flag_encrypt)
@@ -311,7 +311,7 @@ int main(int argc, char *argv[])
         //need to encrypt!!
         // fprintf(fp, "catch1\n");
 
-        printf("%c\n", buffer[0]);
+        
 
         write (sockfd, buffer, 1);
  
