@@ -26,6 +26,19 @@ int buffer_received_ptr = 0;
 int buffer_sent_ptr = 0;
 int flag_encrypt;
 
+struct termios save_attr;
+
+
+void reset_input_mode (void);
+
+//set input mode
+void set_input_mode (void);
+//handlers:
+//SIGPIPE handler
+void pipe_handler(int signum);
+void int_handler (int signum);
+void exit_handler (void);
+
 // mcrypt_generic (td, &block_buffer, 1);
 // mdecrypt_generic (td, &block_buffer, 1);
 
@@ -158,6 +171,7 @@ void* thread_func (void *fd){
 
 int main(int argc, char *argv[])
 {
+    set_input_mode();
     
     
     buffer_received =(char*)malloc(max_size* sizeof(char) );
@@ -300,6 +314,14 @@ int main(int argc, char *argv[])
              max_size = max_size*2;
         }
 
+        if (buffer[0]==4)
+        {
+            close(sockfd);
+            reset_input_mode();
+            exit(0);
+
+        }
+
         if (flag_encrypt)
         {
             mcrypt_generic (TD, buffer, 1);
@@ -342,4 +364,64 @@ int main(int argc, char *argv[])
 
 
     return 0;
+}
+
+
+
+
+
+void reset_input_mode (void)
+{
+  tcsetattr (STDIN_FILENO, TCSANOW, &save_attr);
+}
+
+
+
+//set input mode
+
+void set_input_mode (void)
+{
+    //saved attribute
+        struct termios tattr;
+        
+        /* save the terminal attribute */
+        tcgetattr (STDIN_FILENO, &tattr);
+        //atexit(reset_input_mode);
+
+
+        //set the terminal mode
+        tcgetattr (0, &save_attr);
+
+
+        
+        tattr.c_lflag &= ~(ICANON|ECHO);
+
+        tattr.c_cc[VTIME]=0;
+        tattr.c_cc[VMIN] = 1;
+
+        tcsetattr(0, TCSAFLUSH, &tattr);
+
+}
+
+//handlers:
+
+//SIGPIPE handler
+
+void pipe_handler(int signum)
+{
+    //restore the terminal mode
+   // reset_input_mode();
+    //printf("mother fucker" );
+    exit (1);
+
+}
+
+void int_handler (int signum)
+{
+    kill(pid, SIGINT);
+}
+
+void exit_handler (void)
+{
+    //reset_input_mode();
 }
