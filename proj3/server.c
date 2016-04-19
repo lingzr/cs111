@@ -231,9 +231,8 @@ int main (int argc, char* argv[])
             
 
                 //need to decrypt
-                while (1)
+                while (read(0, buffer,1)>0)
                 {
-                    read(0, buffer,1);
                     
                    // fprintf(fp, "catch1\n");
                     if (flag_encrypt)
@@ -241,8 +240,6 @@ int main (int argc, char* argv[])
                         mdecrypt_generic (TD, buffer, 1);
                     }
 
-                    if (buffer[0]==4)
-                        break;
                    
 
                      
