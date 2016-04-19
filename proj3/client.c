@@ -320,11 +320,13 @@ int main(int argc, char *argv[])
  
     }
 
+    printf("!!!!!!!!!!!");    
+
      if (log_file_name!=NULL)
     {
        // printf("%s\n",buffer_received );
         //printf("wtf!!!!!!!\n");
-        printf("!!!!!!!!!!!");
+        //printf("!!!!!!!!!!!");
         int received_byte = strlen(buffer_received);
         int sent_byte = strlen(buffer_sent);
         //write to the file
