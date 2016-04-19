@@ -1,0 +1,11 @@
+SENT 3 bytes: ls
+
+RECEIVED 68 bytes: client
+client.c
+file.txt
+note.txt
+server
+server.c
+test.txt
+text.txt
+
