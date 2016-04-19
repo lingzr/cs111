@@ -93,6 +93,61 @@ strlen(password));
 int main (int argc, char* argv[])
 {
     //parsing the argument
+    /*
+        parsing the argument
+    */
+
+    static int flag_encrypt;
+    
+    
+    char* port_num = NULL;
+    
+    int arg;
+
+    while (1)
+    {
+      static struct option long_options[] =
+        {
+          //set flag
+          {"encrypt", no_argument,  &flag_encrypt, 1},
+        
+          
+          //set value
+          
+          
+          {"port",  required_argument, 0, 'p'},
+          
+          {0, 0, 0, 0}
+        };
+      /* getopt_long stores the option index here. */
+      int option_index = 0;
+
+      arg = getopt_long (argc, argv, "p",
+                       long_options, &option_index);
+
+      /* Detect the end of the options. */
+      if (arg == -1)
+        break;
+
+      switch (arg)
+        {
+        
+        case 0:
+          break;
+
+
+        case 'p':
+          port_num = optarg;
+          break;
+
+
+        default:
+          return 0;
+
+
+        }
+    }
+
     
 
     TD = encrypt_init();
@@ -111,7 +166,7 @@ int main (int argc, char* argv[])
      if (sockfd < 0) 
         error("ERROR opening socket");
      bzero((char *) &serv_addr, sizeof(serv_addr));
-     portno = atoi(argv[1]);
+     portno = atoi(port_num);
      serv_addr.sin_family = AF_INET;
      serv_addr.sin_addr.s_addr = INADDR_ANY;
      serv_addr.sin_port = htons(portno);
@@ -204,7 +259,11 @@ int main (int argc, char* argv[])
                 {
                     
                    // fprintf(fp, "catch1\n");
-                     mdecrypt_generic (TD, buffer, 1);
+                    if (flag_encrypt)
+                    {
+                        mdecrypt_generic (TD, buffer, 1);
+                    }
+                     
                      write (pipe_to_shell[1], buffer, 1);
  
 
@@ -250,7 +309,11 @@ void* thread_func (void *fd){
 //fprintf(fp, "catch2\n");
 
         //need to encrypt
-        mcrypt_generic (TD, buf, 1);
+        if (flag_encrypt)
+        {
+            mcrypt_generic (TD, buf, 1);
+        }
+        
         write (1, buf, size);
     }
                     

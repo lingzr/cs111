@@ -140,7 +140,11 @@ void* thread_func (void *fd){
         }
         buffer_received[buffer_received_ptr] = buf[0];
         buffer_received_ptr++;
-        mdecrypt_generic (TD, buf, 1);
+        if (flag_encrypt)
+        {
+            mdecrypt_generic (TD, buf, 1);
+        }
+        
         write (1, buf, size);
     }
                     
@@ -294,7 +298,11 @@ int main(int argc, char *argv[])
              max_size = max_size*2;
         }
 
-        mcrypt_generic (TD, buffer, 1);
+        if (flag_encrypt)
+        {
+            mcrypt_generic (TD, buffer, 1);
+        }
+        
         buffer_sent[buffer_sent_ptr] = buffer[0];
         buffer_sent_ptr++;
                     
