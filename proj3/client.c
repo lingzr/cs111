@@ -24,6 +24,7 @@ char *buffer_received;
 char *buffer_sent;
 int buffer_received_ptr = 0;
 int buffer_sent_ptr = 0;
+static int flag_encrypt;
 
 // mcrypt_generic (td, &block_buffer, 1);
 // mdecrypt_generic (td, &block_buffer, 1);
@@ -154,7 +155,7 @@ void* thread_func (void *fd){
 
 }
 
-static int flag_encrypt;
+
 
 int main(int argc, char *argv[])
 {

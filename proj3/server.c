@@ -12,7 +12,7 @@
 #include <string.h>
 #include <mcrypt.h>
 
-
+static int flag_encrypt;
 int fp;
 struct termios save_attr;
 int pid;
@@ -88,7 +88,7 @@ strlen(password));
 }
 
 
-static int flag_encrypt;
+
 
 int main (int argc, char* argv[])
 {
