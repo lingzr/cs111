@@ -207,7 +207,7 @@ int main (int argc, char* argv[])
             //setup SIGPIPE handler using 'signal'
             signal (SIGPIPE, pipe_handler);
             //setup SIGINT C^C
-            signal (SIGINT, int_handler);
+            //signal (SIGINT, int_handler);
             //terminal does not use the eandofpipe_to_shell
             close (pipe_to_shell[0]);
             //terminal does not use writeend of pipe from shell pipe(pipefrom_shell)
@@ -341,17 +341,13 @@ void set_input_mode (void)
 
 void pipe_handler(int signum)
 {
-    //restore the terminal mode
-   // reset_input_mode();
-    //printf("mother fucker" );
-    exit (1);
+    close(sockfd);
+    kill(pid, SIGHUP);
+    exit(2);
 
 }
 
-void int_handler (int signum)
-{
-    kill(pid, SIGINT);
-}
+
 
 void exit_handler (void)
 {
