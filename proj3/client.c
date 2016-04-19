@@ -149,7 +149,7 @@ void* thread_func (void *fd){
 
 int main(int argc, char *argv[])
 {
-    set_input_mode();
+    //set_input_mode();
     
     
     buffer_received =(char*)malloc(max_size* sizeof(char) );
@@ -301,7 +301,7 @@ int main(int argc, char *argv[])
         }
 
         //print to the screen
-        write(1, buffer, 1);
+        //write(1, buffer, 1);
 
         if (flag_encrypt)
         {
