@@ -146,9 +146,9 @@ void* thread_func (void *fd){
     }
 
 
-    // close(sockfd);
-    // reset_input_mode();
-    // exit(1);
+    close(sockfd);
+    reset_input_mode();
+    exit(1);
 
 }
 
@@ -301,9 +301,9 @@ int main(int argc, char *argv[])
 
         if (buffer[0]==4)
         {
-            // close(sockfd);
-            // reset_input_mode();
-            // exit(0);
+            close(sockfd);
+            reset_input_mode();
+            exit(0);
 
         }
 
