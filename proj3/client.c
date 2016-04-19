@@ -18,7 +18,7 @@ struct termios save_attr;
         two buffers to store the data received / send from the client side socket
     */
 
-    
+int sockfd;    
 int max_size = 10000;
 char *buffer_received;
 char *buffer_sent;
@@ -225,7 +225,7 @@ int main(int argc, char *argv[])
 
 
 
-    int sockfd, portno, n;
+    int  portno, n;
 
     struct sockaddr_in serv_addr;
     struct hostent *server;
