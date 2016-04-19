@@ -32,6 +32,7 @@ MCRYPT TD;
 
 MCRYPT encrypt_init ()
 {
+  MCRYPT td;
   int i;
   char *key;
   //char password[20];
