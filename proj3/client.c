@@ -394,10 +394,10 @@ void pipe_handler(int signum)
 
 }
 
-void int_handler (int signum)
-{
-    kill(pid, SIGINT);
-}
+// void int_handler (int signum)
+// {
+//     kill(pid, SIGINT);
+// }
 
 void exit_handler (void)
 {
