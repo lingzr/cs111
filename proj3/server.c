@@ -16,6 +16,7 @@ int flag_encrypt;
 int fp;
 struct termios save_attr;
 int pid;
+int sockfd;
 
 void reset_input_mode (void);
 //this thread reads from shell and output to the stdout
@@ -154,7 +155,7 @@ int main (int argc, char* argv[])
         
     // set_input_mode();
 
-     int sockfd, newsockfd, portno, clilen;
+     int  newsockfd, portno, clilen;
      char buffer[256];
      struct sockaddr_in serv_addr, cli_addr;
      int n;
@@ -228,31 +229,6 @@ int main (int argc, char* argv[])
 
             
             
-                //fp = fopen("file.txt", "w+")
-                // if (buf[0]==4)
-                // {
-                //     //reach the edn of the file, call the EOF_handler
-                //     //printf("mother fucker!!\n");
-                //     close (pipe_to_shell[1]);
-                //     close (pipe_from_shell[0]);
-                //     kill(pid, SIGHUP);
-                //     reset_input_mode();
-                //     exit (0);
-                // }
-                // else if (buf[0] ==13 || buf[0] ==10)
-                // {
-                //     char cr =13;
-                //     char lf =10;
-                //     write(1, &cr, size);
-                //     write(1, &lf, size);
-                //     write (pipe_to_shell[1], &lf, size);
-
-                // }
-                // else
-                // {
-                //     write (1, buf, size);
-                //     write (pipe_to_shell[1], buf, size);
-                // }
 
                 //need to decrypt
                 while (read(0, buffer,1)>0)
@@ -271,6 +247,9 @@ int main (int argc, char* argv[])
  
 
                 }
+                close(sockfd);
+                kill(pid, SIGHUP);
+                exit(1);
                  
 
             }
@@ -306,7 +285,9 @@ void* thread_func (void *fd){
         //restore the terminal mode and end;
         //reset_input_mode();
         //printf("mother\n");
-        exit(1);
+        close(sockfd);
+        kill(pid, SIGHUP);
+        exit(2);
     }
     else{
 //fprintf(fp, "catch2\n");

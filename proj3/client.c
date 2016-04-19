@@ -114,7 +114,8 @@ void* thread_func (void *fd){
 
     //need to decrypt!!!!!
 
-    while ((size = read(*(int *)fd, buf, 1))>0){
+    while ((size = read(*(int *)fd, buf, 1))>0)
+    {
     //upon receiving EOF from the shell
     
     
@@ -143,6 +144,9 @@ void* thread_func (void *fd){
                     
     }
 
+
+    close(sockfd);
+    reset_input_mode();
     exit(1);
 
 }
