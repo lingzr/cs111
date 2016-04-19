@@ -134,6 +134,8 @@ void* thread_func (void *fd){
              buffer_received = (char *) realloc(buffer_received, max_size*2);
              max_size = max_size*2;
         }
+
+        printf("%c\n", buf[0]);
         buffer_received[buffer_received_ptr] = buf[0];
         buffer_received_ptr++;
         if (flag_encrypt)
@@ -141,7 +143,7 @@ void* thread_func (void *fd){
             mdecrypt_generic (TD, buf, 1);
         }
 
-        printf("%c\n", buf[0]);
+
         
         write (1, buf, size);
     
