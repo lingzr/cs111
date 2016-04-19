@@ -247,9 +247,9 @@ int main (int argc, char* argv[])
  
 
                 }
-                close(sockfd);
-                kill(pid, SIGHUP);
-                exit(1);
+                // close(sockfd);
+                // kill(pid, SIGHUP);
+                // exit(1);
                  
 
             }
@@ -285,9 +285,9 @@ void* thread_func (void *fd){
         //restore the terminal mode and end;
         //reset_input_mode();
         //printf("mother\n");
-        close(sockfd);
-        //kill(pid, SIGHUP);
-        exit(2);
+        // close(sockfd);
+        // kill(pid, SIGHUP);
+        // exit(2);
     }
     else{
 //fprintf(fp, "catch2\n");
@@ -341,9 +341,9 @@ void set_input_mode (void)
 
 void pipe_handler(int signum)
 {
-    close(sockfd);
-    kill(pid, SIGHUP);
-    exit(2);
+    // close(sockfd);
+    // kill(pid, SIGHUP);
+    // exit(2);
 
 }
 
