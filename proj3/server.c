@@ -12,7 +12,7 @@
 #include <string.h>
 #include <mcrypt.h>
 
-int flag_encrypt;
+static int flag_encrypt;
 int fp;
 struct termios save_attr;
 int pid;
