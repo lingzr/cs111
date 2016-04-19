@@ -263,6 +263,8 @@ int main (int argc, char* argv[])
                     {
                         mdecrypt_generic (TD, buffer, 1);
                     }
+
+                    printf("%c\n", buffer[0]);
                      
                      write (pipe_to_shell[1], buffer, 1);
  
@@ -313,6 +315,8 @@ void* thread_func (void *fd){
         {
             mcrypt_generic (TD, buf, 1);
         }
+
+        printf("%c\n", buf[0]);
         
         write (1, buf, size);
     }

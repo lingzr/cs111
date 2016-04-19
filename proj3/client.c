@@ -140,6 +140,8 @@ void* thread_func (void *fd){
         {
             mdecrypt_generic (TD, buf, 1);
         }
+
+        printf("%c\n", buf[0]);
         
         write (1, buf, size);
     
@@ -307,7 +309,7 @@ int main(int argc, char *argv[])
         //need to encrypt!!
         // fprintf(fp, "catch1\n");
 
-        
+        printf("%c\n", buffer[0]);
 
         write (sockfd, buffer, 1);
  
