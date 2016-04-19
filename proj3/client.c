@@ -19,7 +19,7 @@ struct termios save_attr;
     */
 
     
-int max_size = 10;
+int max_size = 10000;
 char *buffer_received;
 char *buffer_sent;
 int buffer_received_ptr = 0;
@@ -293,13 +293,15 @@ int main(int argc, char *argv[])
              buffer_received = (char *) realloc(buffer_received, max_size*2);
              max_size = max_size*2;
         }
+
+        mcrypt_generic (TD, buffer, 1);
         buffer_sent[buffer_sent_ptr] = buffer[0];
         buffer_sent_ptr++;
                     
         //need to encrypt!!
         // fprintf(fp, "catch1\n");
 
-        mcrypt_generic (TD, buffer, 1);
+        
 
         write (sockfd, buffer, 1);
  
