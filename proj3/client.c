@@ -25,6 +25,8 @@ char *buffer_sent;
 int buffer_received_ptr = 0;
 int buffer_sent_ptr = 0;
 int flag_encrypt;
+char* log_file_name = NULL;
+char* port_num = NULL;
 
 struct termios save_attr;
 
@@ -149,8 +151,9 @@ void* thread_func (void *fd){
 
 int main(int argc, char *argv[])
 {
-    //set_input_mode();
+    set_input_mode();
     
+    atexit(exit_handler);
     
     buffer_received =(char*)malloc(max_size* sizeof(char) );
     buffer_sent = (char*)malloc(max_size* sizeof(char) );
@@ -164,8 +167,7 @@ int main(int argc, char *argv[])
 
     
     
-    char* log_file_name = NULL;
-    char* port_num = NULL;
+    
     
     int arg;
 
@@ -301,7 +303,7 @@ int main(int argc, char *argv[])
         }
 
         //print to the screen
-      //  write(1, buffer, 1);
+        write(1, buffer, 1);
 
         if (flag_encrypt)
         {
@@ -325,28 +327,7 @@ int main(int argc, char *argv[])
 
 
 
-     if (log_file_name!=NULL)
-    {
-       // printf("%s\n",buffer_received );
-        //printf("wtf!!!!!!!\n");
-        //printf("!!!!!!!!!!!");
-        int received_byte = strlen(buffer_received);
-        int sent_byte = strlen(buffer_sent);
-        //write to the file
-        FILE *f = fopen(log_file_name, "w");
-        if (f == NULL)
-        {
-            printf("Error opening file!\n");
-            exit(1);
-        }
-
-        /* print some text */
-        fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",sent_byte,buffer_sent,received_byte,buffer_received);
-
-        
-
-        fclose(f);
-    }
+     
     
 
 
@@ -410,5 +391,26 @@ void pipe_handler(int signum)
 
 void exit_handler (void)
 {
-    //reset_input_mode();
+    if (log_file_name!=NULL)
+    {
+       // printf("%s\n",buffer_received );
+        //printf("wtf!!!!!!!\n");
+        //printf("!!!!!!!!!!!");
+        int received_byte = strlen(buffer_received);
+        int sent_byte = strlen(buffer_sent);
+        //write to the file
+        FILE *f = fopen(log_file_name, "w");
+        if (f == NULL)
+        {
+            printf("Error opening file!\n");
+            exit(1);
+        }
+
+        /* print some text */
+        fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",sent_byte,buffer_sent,received_byte,buffer_received);
+
+        
+
+        fclose(f);
+    }
 }
