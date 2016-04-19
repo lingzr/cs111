@@ -286,7 +286,7 @@ void* thread_func (void *fd){
         //reset_input_mode();
         //printf("mother\n");
         close(sockfd);
-        kill(pid, SIGHUP);
+        //kill(pid, SIGHUP);
         exit(2);
     }
     else{
