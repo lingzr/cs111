@@ -309,7 +309,7 @@ int main(int argc, char *argv[])
 
      if (log_file_name!=NULL)
     {
-        printf("%s\n",buffer_received );
+       // printf("%s\n",buffer_received );
         //printf("wtf!!!!!!!\n");
         int received_byte = strlen(buffer_received);
         int sent_byte = strlen(buffer_sent);
