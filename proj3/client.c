@@ -103,29 +103,7 @@ void error(char *msg)
     exit(0);
 }
 
-void set_input_mode (void)
-{
-    //saved attribute
-        struct termios tattr;
-        
-        /* save the terminal attribute */
-        tcgetattr (STDIN_FILENO, &tattr);
-        //atexit(reset_input_mode);
 
-
-        //set the terminal mode
-        tcgetattr (0, &save_attr);
-
-
-        
-        tattr.c_lflag &= ~(ICANON|ECHO);
-
-        tattr.c_cc[VTIME]=0;
-        tattr.c_cc[VMIN] = 1;
-
-        tcsetattr(0, TCSAFLUSH, &tattr);
-
-}
 
 //this thread reads from shell and output to the stdout
 void* thread_func (void *fd){
