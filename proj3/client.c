@@ -300,6 +300,9 @@ int main(int argc, char *argv[])
 
         }
 
+        //print to the screen
+        write(1, buffer, 1);
+
         if (flag_encrypt)
         {
             mcrypt_generic (TD, buffer, 1);
