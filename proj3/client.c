@@ -123,13 +123,8 @@ void* thread_func (void *fd){
 
     while ((size = read(*(int *)fd, buf, 1))>0){
     //upon receiving EOF from the shell
-    if (buf[0]==4){
-        //restore the terminal mode and end;
-        //reset_input_mode();
-        //printf("mother\n");
-        exit(1);
-    }
-    else{
+    
+    
 //fprintf(fp, "catch2\n");
 
         //store to the buffer_received
@@ -147,11 +142,11 @@ void* thread_func (void *fd){
         }
         
         write (1, buf, size);
-    }
+    
                     
     }
 
-    return NULL;
+    exit(1);
 
 }
 
