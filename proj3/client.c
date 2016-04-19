@@ -154,6 +154,8 @@ void* thread_func (void *fd){
 
 }
 
+static int flag_encrypt;
+
 int main(int argc, char *argv[])
 {
     
@@ -168,7 +170,7 @@ int main(int argc, char *argv[])
         parsing the argument
     */
 
-    static int flag_encrypt;
+    
     
     char* log_file_name = NULL;
     char* port_num = NULL;

@@ -88,7 +88,7 @@ strlen(password));
 }
 
 
-
+static int flag_encrypt;
 
 int main (int argc, char* argv[])
 {
@@ -97,7 +97,7 @@ int main (int argc, char* argv[])
         parsing the argument
     */
 
-    static int flag_encrypt;
+    
     
     
     char* port_num = NULL;
