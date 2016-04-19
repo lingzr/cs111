@@ -115,14 +115,13 @@ void* thread_func (void *fd){
     //need to decrypt!!!!!
     //(size = read(*(int *)fd, buf, 1))>0
 
-    while (1)
+    while ((size = read(*(int *)fd, buf, 1))>0)
     {
     //upon receiving EOF from the shell
     
     
 //fprintf(fp, "catch2\n");
 
-        read(*(int *)fd, buf, 1);
         //store to the buffer_received
         if (buffer_received_ptr >= max_size-1)
         {
@@ -138,9 +137,6 @@ void* thread_func (void *fd){
         {
             mdecrypt_generic (TD, buf, 1);
         }
-
-        if (buf[0]==4)
-            break;
 
 
         
