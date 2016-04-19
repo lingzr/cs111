@@ -317,11 +317,12 @@ int main(int argc, char *argv[])
         
 
         write (sockfd, buffer, 1);
-        printf("!!!!!!!!!!!"); 
+
  
     }
 
- 
+    printf("!!!!!!!!!!!"); 
+
 
 
      if (log_file_name!=NULL)
