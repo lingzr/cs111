@@ -34,6 +34,59 @@ void error(char *msg)
     exit(1);
 }
 
+MCRYPT TD;
+
+
+MCRYPT encrypt_init ()
+{
+  MCRYPT td;
+  int i;
+  char *key;
+  //char password[20];
+  //char block_buffer;
+  char *IV;
+  int keysize=16; /* 128 bits */
+  key=calloc(1, keysize);
+  //strcpy(password, "A_large_key");
+/* Generate the key using the password */
+/*  mhash_keygen( KEYGEN_MCRYPT, MHASH_MD5, key, keysize, NULL, 0, password,
+strlen(password));
+ */
+  //memmove( key, password, strlen(password));
+
+    
+//read the key from my.key
+   FILE *fp;
+  
+
+   fp = fopen("my.key", "r");
+   
+
+   fgets(key, 16, (FILE*)fp);
+   
+   
+   fclose(fp);
+
+
+   td = mcrypt_module_open("twofish", NULL, "cfb", NULL);
+  
+  IV = malloc(mcrypt_enc_get_iv_size(td));
+/* Put random data in IV. Note these are not real random data,
+ * consider using /dev/random or /dev/urandom.
+ */
+  /*  srand(time(0)); */
+  for (i=0; i< mcrypt_enc_get_iv_size( td); i++) {
+    IV[i]=i;
+  }
+
+  i=mcrypt_generic_init( td, key, keysize, IV);
+  if (i<0) {
+     mcrypt_perror(i);
+     
+  }
+  return td;
+}
+
 
 
 
@@ -42,7 +95,7 @@ int main (int argc, char* argv[])
     //parsing the argument
     
 
-
+    TD = encrypt_init();
         
     // set_input_mode();
 
@@ -151,6 +204,7 @@ int main (int argc, char* argv[])
                 {
                     
                    // fprintf(fp, "catch1\n");
+                     mdecrypt_generic (TD, buffer, 1);
                      write (pipe_to_shell[1], buffer, 1);
  
 
@@ -196,6 +250,7 @@ void* thread_func (void *fd){
 //fprintf(fp, "catch2\n");
 
         //need to encrypt
+        mcrypt_generic (TD, buf, 1);
         write (1, buf, size);
     }
                     
