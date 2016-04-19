@@ -19,7 +19,7 @@ struct termios save_attr;
     */
 
     
-int max_size = 10000;
+int max_size = 100;
 char *buffer_received;
 char *buffer_sent;
 int buffer_received_ptr = 0;
@@ -132,7 +132,7 @@ void* thread_func (void *fd){
 //fprintf(fp, "catch2\n");
 
         //store to the buffer_received
-        if (buffer_received_ptr >= max_size)
+        if (buffer_received_ptr >= max_size-1)
         {
              buffer_sent = (char *) realloc(buffer_sent, max_size*2);
              buffer_received = (char *) realloc(buffer_received, max_size*2);
@@ -287,7 +287,7 @@ int main(int argc, char *argv[])
     while (read(0, buffer,1)>0)
     {
         //store to the buffer_sent
-        if (buffer_sent_ptr >= max_size)
+        if (buffer_sent_ptr >= max_size-1)
         {
              buffer_sent = (char *) realloc(buffer_sent, max_size*2);
              buffer_received = (char *) realloc(buffer_received, max_size*2);
