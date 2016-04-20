@@ -130,7 +130,7 @@ void* thread_func (void *fd){
              max_size = max_size*2;
         }
 
-        printf("%c\n",buf[0] );
+        
 
         buffer_received[buffer_received_ptr++] = buf[0];
        
@@ -413,7 +413,14 @@ void exit_handler (void)
         }
 
         /* print some text */
-        fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",sent_byte,buffer_sent,received_byte,buffer_received);
+        fprintf(f, "SENT %d bytes: ",sent_byte );
+        write (f, buffer_sent, sent_byte);
+        fprintf(f, "\n" );
+        fprintf(f, "RECEIVED %d bytes: ",received_byte );
+        write (f, buffer_received, received_byte);
+        fprintf(f, "\n" );
+
+        //fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",sent_byte,buffer_sent,received_byte,buffer_received);
 
         
 
