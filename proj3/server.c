@@ -341,9 +341,10 @@ void set_input_mode (void)
 
 void pipe_handler(int signum)
 {
-    close(sockfd);
-    kill(pid, SIGHUP);
-    exit(2);
+    //restore the terminal mode
+   // reset_input_mode();
+    //printf("mother fucker" );
+    exit (1);
 
 }
 
