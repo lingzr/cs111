@@ -11,6 +11,8 @@
 #include <termios.h>
 #include <getopt.h>
 #include <mcrypt.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 struct termios save_attr;
 
