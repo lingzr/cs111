@@ -426,7 +426,7 @@ void exit_handler (void)
         // write (f, buffer_received, received_byte);
         // fprintf(f, "\n" );
 
-        fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",buffer_sent_ptr+1,buffer_sent,buffer_received+1,buffer_received);
+        fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",buffer_sent_ptr+1,buffer_sent,buffer_received_ptr+1,buffer_received);
 
         
 
