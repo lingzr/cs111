@@ -405,7 +405,8 @@ void exit_handler (void)
         int received_byte = strlen(buffer_received);
         int sent_byte = strlen(buffer_sent);
         //write to the file
-        FILE *f = fopen(log_file_name, "w");
+        //FILE *f = fopen(log_file_name, "w");
+        int f = fopen(log_file_name, "w");
         if (f == NULL)
         {
             printf("Error opening file!\n");
