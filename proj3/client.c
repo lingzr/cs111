@@ -317,7 +317,7 @@ int main(int argc, char *argv[])
             mcrypt_generic (TD, buffer, 1);
         }
         
-        if (buffer[0]=='\n')
+        if (buffer[0]=='\0')
         {
             buffer[0]=' ';
         }
