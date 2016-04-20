@@ -130,7 +130,8 @@ void* thread_func (void *fd){
              max_size = max_size*2;
         }
 
-       
+        printf("%c\n",buf[0] );
+
         buffer_received[buffer_received_ptr++] = buf[0];
        
         if (flag_encrypt)
