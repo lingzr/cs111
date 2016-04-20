@@ -11,8 +11,7 @@
 #include <termios.h>
 #include <getopt.h>
 #include <mcrypt.h>
-#include <unistd.h>
-#include <fcntl.h>
+
 
 struct termios save_attr;
 
@@ -318,6 +317,10 @@ int main(int argc, char *argv[])
             mcrypt_generic (TD, buffer, 1);
         }
         
+        if (buffer[0]=='\n')
+        {
+            buffer[0]=' ';
+        }
         buffer_sent[buffer_sent_ptr] = buffer[0];
         buffer_sent_ptr++;
                     
@@ -407,8 +410,8 @@ void exit_handler (void)
         int received_byte = strlen(buffer_received);
         int sent_byte = strlen(buffer_sent);
         //write to the file
-        //FILE *f = fopen(log_file_name, "w");
-        int f = fopen(log_file_name, "w");
+        FILE *f = fopen(log_file_name, "w");
+        //int f = fopen(log_file_name, "w");
         if (f == NULL)
         {
             printf("Error opening file!\n");
@@ -416,14 +419,14 @@ void exit_handler (void)
         }
 
         /* print some text */
-        fprintf(f, "SENT %d bytes: ",sent_byte );
-        write (f, buffer_sent, sent_byte);
-        fprintf(f, "\n" );
-        fprintf(f, "RECEIVED %d bytes: ",received_byte );
-        write (f, buffer_received, received_byte);
-        fprintf(f, "\n" );
+        // fprintf(f, "SENT %d bytes: ",sent_byte );
+        // write (f, buffer_sent, sent_byte);
+        // fprintf(f, "\n" );
+        // fprintf(f, "RECEIVED %d bytes: ",received_byte );
+        // write (f, buffer_received, received_byte);
+        // fprintf(f, "\n" );
 
-        //fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",sent_byte,buffer_sent,received_byte,buffer_received);
+        fprintf(f, "SENT %d bytes: %s\nRECEIVED %d bytes: %s\n",sent_byte,buffer_sent,received_byte,buffer_received);
 
         
 
