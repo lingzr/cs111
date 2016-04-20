@@ -55,7 +55,7 @@ MCRYPT encrypt_init ()
   //char password[20];
   //char block_buffer;
   char *IV;
-  int keysize=7; /* 128 bits */
+  int keysize=16; /* 128 bits */
   key=calloc(1, keysize);
   //strcpy(password, "A_large_key");
 /* Generate the key using the password */
@@ -78,7 +78,7 @@ strlen(password));
    fclose(fp);
 
 
-   td = mcrypt_module_open("des", NULL, "cfb", NULL);
+   td = mcrypt_module_open("twofish", NULL, "cfb", NULL);
   
   IV = malloc(mcrypt_enc_get_iv_size(td));
 /* Put random data in IV. Note these are not real random data,
