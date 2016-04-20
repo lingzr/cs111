@@ -131,8 +131,8 @@ void* thread_func (void *fd){
         }
 
        
-        buffer_received[buffer_received_ptr] = buf[0];
-        buffer_received_ptr++;
+        buffer_received[buffer_received_ptr++] = buf[0];
+       
         if (flag_encrypt)
         {
             mdecrypt_generic (TD, buf, 1);
