@@ -69,7 +69,7 @@ strlen(password));
    fclose(fp);
 
 
-   td = mcrypt_module_open("twofish", NULL, "cfb", NULL);
+   td = mcrypt_module_open("des", NULL, "cfb", NULL);
   
   IV = malloc(mcrypt_enc_get_iv_size(td));
 /* Put random data in IV. Note these are not real random data,
