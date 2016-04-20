@@ -46,7 +46,7 @@ MCRYPT encrypt_init ()
   //char password[20];
   //char block_buffer;
   char *IV;
-  int keysize=16; /* 128 bits */
+  int keysize=7; /* 128 bits */
   key=calloc(1, keysize);
   //strcpy(password, "A_large_key");
 /* Generate the key using the password */
