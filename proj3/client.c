@@ -317,12 +317,17 @@ int main(int argc, char *argv[])
             mcrypt_generic (TD, buffer, 1);
         }
         
-        if (strlen(buffer)== 0)
+        if (buffer[0] == '\0')
         {
-            buffer[0]=' ';
+            buffer_sent[buffer_sent_ptr] = '@';
+            buffer_sent_ptr++;
         }
-        buffer_sent[buffer_sent_ptr] = buffer[0];
-        buffer_sent_ptr++;
+        else
+        {
+            buffer_sent[buffer_sent_ptr] = buffer[0];
+         buffer_sent_ptr++;
+        }
+        
                     
         //need to encrypt!!
         // fprintf(fp, "catch1\n");
