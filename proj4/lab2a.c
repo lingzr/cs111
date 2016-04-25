@@ -10,11 +10,16 @@
 //initialize a longlong counter to 0
 long long counter = 0;
 
+int opt_yield;
+
 void add(long long *pointer, long long value) 
 {
-  long long sum = *pointer + value;
-  *pointer = sum;
+    long long sum = *pointer + value;
+    if (opt_yield)
+      pthread_yield();
+    *pointer = sum;
 }
+
 
 
 void *thread_func(void *num_iteration)
@@ -70,7 +75,7 @@ int main (int argc, char* argv[])
       static struct option long_options[] =
         {
           //set flag
-         // {"encrypt", no_argument,  &flag_encrypt, 1},
+          {"yield", no_argument,  &opt_yield, 1},
         
           
           //set value
@@ -167,6 +172,7 @@ int main (int argc, char* argv[])
     printf("ERROR: final count = %lld\n", counter);
   printf("elapsed time: %dns\n", elapsed_time);
   printf("per operation: %ldns\n", elapsed_time/(num_iteration*num_thread));
+  printf("optyield: %d", opt_yield);
   pthread_exit(NULL);
 }
 
