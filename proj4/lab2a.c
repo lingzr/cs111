@@ -11,16 +11,18 @@
 long long counter = 0;
 pthread_mutex_t count_mutex;
 int opt_yield;
+char sync;
 volatile int lock = 0;
 
 
 void add(long long *pointer, long long value) 
 {
+    long long sum;
     switch (sync)
     {
       case 'm':
         pthread_mutex_lock(&count_mutex);
-        long long sum = *pointer + value;
+        sum = *pointer + value;
         if (opt_yield)
         pthread_yield();
         *pointer = sum;
@@ -30,7 +32,7 @@ void add(long long *pointer, long long value)
       case 's':
         while (__sync_lock_test_and_set(&lock, 1));
         // critical section
-        long long sum = *pointer + value;
+        sum = *pointer + value;
         if (opt_yield)
         pthread_yield();
         *pointer = sum;
@@ -39,7 +41,7 @@ void add(long long *pointer, long long value)
 
       case 'c':
         while (__sync_val_compare_and_swap(&lock, 0, 1) == 1);
-        long long sum = *pointer + value;
+        sum = *pointer + value;
         if (opt_yield)
         pthread_yield();
         *pointer = sum;
@@ -47,7 +49,7 @@ void add(long long *pointer, long long value)
       break;
 
       default:
-        long long sum = *pointer + value;
+        sum = *pointer + value;
         if (opt_yield)
         pthread_yield();
         *pointer = sum;
@@ -119,13 +121,14 @@ int main (int argc, char* argv[])
           
           {"threads",  required_argument, 0, 't'},
           {"iterations",  required_argument, 0, 'i'},
+          {"sync",  required_argument, 0, 's'},
           
           {0, 0, 0, 0}
         };
       /* getopt_long stores the option index here. */
       int option_index = 0;
 
-      char arg = getopt_long (argc, argv, "ti",
+      char arg = getopt_long (argc, argv, "tis",
                        long_options, &option_index);
 
       /* Detect the end of the options. */
@@ -145,6 +148,10 @@ int main (int argc, char* argv[])
 
         case 'i':
           num_iteration = atoi(optarg);
+          break;
+
+        case 's':
+          sync = optarg;
           break;
 
         //default:
