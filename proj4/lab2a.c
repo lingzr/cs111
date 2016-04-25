@@ -21,6 +21,7 @@ void add(long long *pointer, long long value)
     switch (sync)
     {
       case 'm':
+        printf("wtf!!!!!!\n");
         pthread_mutex_lock(&count_mutex);
         sum = *pointer + value;
         if (opt_yield)
