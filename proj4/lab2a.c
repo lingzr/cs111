@@ -113,7 +113,7 @@ int main (int argc, char* argv[])
         }
     }
 
-    printf("thread:%ld\niteration:%ld", num_thread, num_iteration);
+    //printf("thread:%ld\niteration:%ld", num_thread, num_iteration);
 
   /*
     set up the timer to keep tracking the time
@@ -132,10 +132,10 @@ int main (int argc, char* argv[])
    int rc;
    long t;
    for(t=0; t<num_thread; t++){
-      printf("In main: creating thread %ld\n", t);
+      //printf("In main: creating thread %ld\n", t);
       rc = pthread_create(&threads[t], NULL, thread_func, (void *)num_iteration);
       if (rc){
-         printf("ERROR; return code from pthread_create() is %d\n", rc);
+         //printf("ERROR; return code from pthread_create() is %d\n", rc);
          exit(-1);
       }
    }
@@ -150,7 +150,7 @@ int main (int argc, char* argv[])
          printf("ERROR; return code from pthread_join()is %d\n", rc);
          exit(-1);
       }
-      printf("Main: completed join with thread %ld having a status of %ld\n",t,(long)status);
+      //printf("Main: completed join with thread %ld having a status of %ld\n",t,(long)status);
    }
 
   /* end time */
