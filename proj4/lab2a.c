@@ -39,7 +39,6 @@ void *thread_func(void *num_iteration)
       switch (sync)
       {
         case 'm':
-          printf("wtf!!\n");
           pthread_mutex_lock(&count_mutex);
           add(&counter, 1);
           pthread_mutex_unlock(&count_mutex);
