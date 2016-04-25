@@ -30,7 +30,7 @@ void add(long long *pointer, long long value)
       break;
 
       case 's':
-        while (__sync_lock_test_and_set(&lock, 1));
+        while (__sync_lock_test_and_set(&lock, 1)==1);
         // critical section
         sum = *pointer + value;
         if (opt_yield)
