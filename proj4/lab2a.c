@@ -151,7 +151,7 @@ int main (int argc, char* argv[])
           break;
 
         case 's':
-          sync = optarg;
+          sync = (char)optarg;
           break;
 
         //default:
