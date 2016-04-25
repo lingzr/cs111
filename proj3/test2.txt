@@ -1,0 +1,18 @@
+SENT 3 bytes: ls
+
+RECEIVED 68 bytes: client
+client.c
+file.txt
+note.txt
+server
+server.c
+test.txt
+text.txt
+
+
+gcc -pthread -lmcrypt -ldl server.c -o server
+
+gcc -pthread -lmcrypt -ldl client.c -o client
+./server --port 2001 --encrypt
+
+./client --port 2001 --encrypt --log 1.txt
