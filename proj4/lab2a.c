@@ -15,49 +15,14 @@ char sync;
 volatile int lock = 0;
 
 
+
 void add(long long *pointer, long long value) 
 {
-    long long sum;
-    switch (sync)
-    {
-      case 'm':
-        pthread_mutex_lock(&count_mutex);
-        sum = *pointer + value;
-        if (opt_yield)
-        pthread_yield();
-        *pointer = sum;
-        pthread_mutex_unlock(&count_mutex);
-      break;
-
-      case 's':
-        while (__sync_lock_test_and_set(&lock, 1)==1);
-        // critical section
-        sum = *pointer + value;
-        if (opt_yield)
-        pthread_yield();
-        *pointer = sum;
-        __sync_lock_release(&lock);
-      break;
-
-      case 'c':
-        while (__sync_val_compare_and_swap(&lock, 0, 1) == 1);
-        sum = *pointer + value;
-        if (opt_yield)
-        pthread_yield();
-        *pointer = sum;
-
-      break;
-
-      default:
-        sum = *pointer + value;
-        if (opt_yield)
-        pthread_yield();
-        *pointer = sum;
-      break;
-
-    }
+    long long sum = *pointer + value;
+    if (opt_yield)
+      pthread_yield();
+    *pointer = sum;
 }
-
 
 
 void *thread_func(void *num_iteration)
@@ -68,12 +33,67 @@ void *thread_func(void *num_iteration)
    int i;
    for (i=0; i<numIteration; i++)
    {
-      add(&counter, 1);
+      /*
+        switch function to choose which protection to use
+      */
+      switch (sync)
+      {
+        case 'm':
+          pthread_mutex_lock(&count_mutex);
+          add(&counter, 1);
+          pthread_mutex_unlock(&count_mutex);
+        break;
+
+        case 's':
+          while (__sync_lock_test_and_set(&lock, 1)==1);
+          // critical section
+          add(&counter, 1);
+          __sync_lock_release(&lock);
+        break;
+
+        case 'c':
+          while (__sync_val_compare_and_swap(&lock, 0, 1) == 1);
+          add(&counter, 1);
+
+        break;
+
+        default:
+          add(&counter, 1);
+        break;
+
+      }
+
    }
    //subtract 1 for n times
    for (i=0; i<numIteration; i++)
    {
-      add(&counter, -1);
+      /*
+        switch function to choose which protection to use
+      */
+      switch (sync)
+      {
+        case 'm':
+          pthread_mutex_lock(&count_mutex);
+          add(&counter, -1);
+          pthread_mutex_unlock(&count_mutex);
+        break;
+
+        case 's':
+          while (__sync_lock_test_and_set(&lock, 1)==1);
+          // critical section
+          add(&counter, -1);
+          __sync_lock_release(&lock);
+        break;
+
+        case 'c':
+          while (__sync_val_compare_and_swap(&lock, 0, 1) == 1);
+          add(&counter, -1);
+
+        break;
+
+        default:
+          add(&counter, -1);
+        break;
    }
 
    pthread_exit(NULL);
