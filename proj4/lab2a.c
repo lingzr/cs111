@@ -94,7 +94,8 @@ void *thread_func(void *num_iteration)
         default:
           add(&counter, -1);
         break;
-   }
+      }
+    }
 
    pthread_exit(NULL);
 }
