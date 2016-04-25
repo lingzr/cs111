@@ -1,0 +1,2 @@
+git pull
+gcc -lrt -o lab2a lab2a.c
