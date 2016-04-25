@@ -22,12 +22,13 @@ void *thread_func(void *num_iteration)
    long numIteration;
    numIteration = (long)num_iteration;
    //add 1 for n times
-   for (int i=0; i<numIteration; i++)
+   int i;
+   for (i=0; i<numIteration; i++)
    {
       add(&counter, 1);
    }
    //subtract 1 for n times
-   for (int i=0; i<numIteration; i++)
+   for (i=0; i<numIteration; i++)
    {
       add(&counter, -1);
    }
