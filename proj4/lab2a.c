@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <getopt.h>
 #include <pthread.h>
-//#include <time.h>
 #include <time.h>
 
 
@@ -213,7 +212,7 @@ int main (int argc, char* argv[])
    */
    for(t=0; t<num_thread; t++) 
    {
-
+      rc = pthread_join(threads[t], &status);
       if (rc) 
       {
          printf("ERROR; return code from pthread_join()is %d\n", rc);
