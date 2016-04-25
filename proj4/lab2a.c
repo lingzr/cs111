@@ -9,15 +9,51 @@
 
 //initialize a longlong counter to 0
 long long counter = 0;
-
+pthread_mutex_t count_mutex;
 int opt_yield;
+volatile int lock = 0;
+
 
 void add(long long *pointer, long long value) 
 {
-    long long sum = *pointer + value;
-    if (opt_yield)
-      pthread_yield();
-    *pointer = sum;
+    switch (sync)
+    {
+      case 'm':
+        pthread_mutex_lock(&count_mutex);
+        long long sum = *pointer + value;
+        if (opt_yield)
+        pthread_yield();
+        *pointer = sum;
+        pthread_mutex_unlock(&count_mutex);
+      break;
+
+      case 's':
+        while (__sync_lock_test_and_set(&lock, 1));
+        // critical section
+        long long sum = *pointer + value;
+        if (opt_yield)
+        pthread_yield();
+        *pointer = sum;
+        __sync_lock_release(&lock);
+      break;
+
+      case 'c':
+        while (__sync_val_compare_and_swap(&lock, 0, 1) == 1);
+        long long sum = *pointer + value;
+        if (opt_yield)
+        pthread_yield();
+        *pointer = sum;
+
+      break;
+
+      default:
+        long long sum = *pointer + value;
+        if (opt_yield)
+        pthread_yield();
+        *pointer = sum;
+      break;
+
+    }
 }
 
 
@@ -172,7 +208,6 @@ int main (int argc, char* argv[])
     printf("ERROR: final count = %lld\n", counter);
   printf("elapsed time: %dns\n", elapsed_time);
   printf("per operation: %ldns\n", elapsed_time/(num_iteration*num_thread));
-  printf("optyield: %d", opt_yield);
   pthread_exit(NULL);
 }
 
