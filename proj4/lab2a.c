@@ -237,7 +237,7 @@ int main (int argc, char* argv[])
   //print discription
   printf(" ./lab2a --iterations=%ld --threads=%ld\n%ld threads x %ld iterations x (add + subtract) = %ld operations\n", num_iteration, num_thread, num_thread, num_iteration, num_iteration*num_thread);
   if (counter!=0)
-  printf(stderr,"ERROR: final count = %lld\n", counter);
+  fprintf(stderr,"ERROR: final count = %lld\n", counter);
   printf("elapsed time: %dns\n", elapsed_time);
   printf("per operation: %ldns\n", elapsed_time/(num_iteration*num_thread));
   pthread_exit(NULL);
