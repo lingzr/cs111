@@ -90,7 +90,7 @@ void *thread_func(void *num_iteration)
         break;
 
         case 'c':
-          expected = &counter-1;
+          int expected = &counter-1;
           do 
           {
             add(&counter, -1);
