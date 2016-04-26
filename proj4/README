@@ -1,0 +1,61 @@
+Tao Xiang
+804424176
+
+
+
+Makefile:
+"make" will compile the executable
+"make dist" will make the tarball
+lab2a.c:
+source code
+graph1.png:
+average time for single time in various iteration from 10 to 100000000
+graph2.png:
+taverage operation time VS number of threads with different protection mechanism, iteration number is 100000
+
+
+
+
+QUESTION 2A.1A:
+Why does it take this many threads or iterations to result in failure?
+The data racing doesnt appear frequently. It only happens when one process is about to change the critical value, but another process takes over the control. This happens at a certain possibility. The more operations we try, more possible this error will occur. 
+
+QUESTION 2A.1B:
+Why does a significantly smaller number of iterations so seldom fail?
+
+small number of iteration means: 1. small number of total operations 2. faster operation time for each loop.
+Since data race happens at certain possibility. Smaller number of operations, less likely data race is going to happen. 
+Shorter the operation time in each loop, less likely syncronization error is going to happen. 
+
+QUESTION 2A.2A:
+Why does the average cost per operation drop with increasing iterations?
+The total time for the operation includeing the overhead to create new thread and the time for each operation.
+When the iteration time is small, most of the time is cost by the overhead of creating thread.When the total iteration times increase, the overhead time is insignificant. 
+
+QUESTION 2A.2B:
+How do we know what the “correct” cost is?
+keep increasing the iteration until the average time stays stable. 
+
+QUESTION 2A.2C:
+Why are the --yield runs so much slower?  Where is the extra time going?
+Yielding involves system calls which takes time and have overhead. 
+
+QUESTION 2A.2D:
+Can we get valid timings if we are using --yield?  How, or why not?
+No, we can not. 
+Since yielding will happen in each iteration, which will cause extra time. SO the time we measuered will always include the yielding time. 
+
+QUESTION 2A.3A:
+Why do all of the options perform similarly for low numbers of threads?
+When the number of threads is small, the lock will usually be free, so it is more close to the un protected version. 
+
+QUESTION 2A.3B:
+Why do the three protected operations slow down as the number of threads rises?
+when the threads number go up, many threads have to wait for the lock to be available. 
+
+QUESTION 2A.3C:
+Why are spin-locks so expensive for large numbers of threads?
+When the number of threads is large, there is more likely multiple threads are reaching the critical area. some threads have to wait.
+
+The spin wiat doesnt gurantee fairness, there is a chance some thread has to wait for a longer time. The longest thread waiting time determins the total time. 
+
