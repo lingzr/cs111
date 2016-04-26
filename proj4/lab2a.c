@@ -51,8 +51,13 @@ void *thread_func(void *num_iteration)
         break;
 
         case 'c':
-          while (__sync_val_compare_and_swap(&lock, 0, 1) == 1);
-          add(&counter, 1);
+          int expected = &counter+1;
+          do 
+          {
+            add(&counter, 1);
+          }
+          while (__sync_val_compare_and_swap(&counter, expected, expected) != expected);
+          
 
         break;
 
@@ -85,9 +90,12 @@ void *thread_func(void *num_iteration)
         break;
 
         case 'c':
-          while (__sync_val_compare_and_swap(&lock, 0, 1) == 1);
-          add(&counter, -1);
-
+          expected = &counter-1;
+          do 
+          {
+            add(&counter, -1);
+          }
+          while (__sync_val_compare_and_swap(&counter, expected, expected) != expected);
         break;
 
         default:
