@@ -28,6 +28,7 @@ void *thread_func(void *num_iteration)
 {
    long numIteration;
    numIteration = (long)num_iteration;
+   long long expected;
    //add 1 for n times
    int i;
    for (i=0; i<numIteration; i++)
@@ -51,7 +52,7 @@ void *thread_func(void *num_iteration)
         break;
 
         case 'c':
-          long long  expected = &counter+1;
+          expected = &counter+1;
           do 
           {
             add(&counter, 1);
@@ -90,7 +91,7 @@ void *thread_func(void *num_iteration)
         break;
 
         case 'c':
-          int expected = &counter-1;
+          expected = &counter-1;
           do 
           {
             add(&counter, -1);
