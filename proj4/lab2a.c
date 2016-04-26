@@ -51,7 +51,7 @@ void *thread_func(void *num_iteration)
         break;
 
         case 'c':
-          int expected = &counter+1;
+          long long  expected = &counter+1;
           do 
           {
             add(&counter, 1);
