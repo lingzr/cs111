@@ -20,7 +20,7 @@ void SortedList_insert(SortedList_t *list, SortedListElement_t *element)
 	if (opt_yield & INSERT_YIELD)
 		pthread_yield();
 	//make the current points to the first element whose key is bigger or equal to the element.
-	while (current!= NULL && current->key < element->key)
+	while (current!= NULL && strcmp(current->key,element->key)<0)
 	{
 		if (current->next == NULL)
 			break;
