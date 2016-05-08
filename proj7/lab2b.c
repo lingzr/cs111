@@ -82,6 +82,7 @@ for ( i = *(int *)argc; i < operations; i += threads) {
 
 int main(int argc, char *argv[])
 {
+    int i, j;
     int c;
     char *yieldptr;    
     int yieldopt_count = 0;       
@@ -139,12 +140,13 @@ int main(int argc, char *argv[])
   if (keys == NULL)
     error("malloc fail\n");
   srand(time(NULL));
-  for (int i = 0; i < operations * 6; i += 6) {
-    for (int j = 0; j < 5; j++)
+  for (i = 0; i < operations * 6; i += 6) {
+    
+    for ( j = 0; j < 5; j++)
       keys[i+j] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[rand() % 62];
     keys[i+5] = '\0';
   }
-  int i;
+  
   for (i = 0, j = 0; i < operations; i++, j += 6)
       element[i].key = &keys[j];
 
@@ -155,7 +157,7 @@ int main(int argc, char *argv[])
   int *tid_id = (int *)malloc(threads*sizeof(int));
   if (tid_id == NULL)
     error("malloc fail\n");
-  for (int i = 0; i < threads; i++)
+  for ( i = 0; i < threads; i++)
     tid_id[i] = i;
 
   struct timespec requestStart, requestEnd;
@@ -165,7 +167,7 @@ int main(int argc, char *argv[])
   for ( i = 0; i < threads; i++)
     pthread_create(&tids[i], NULL, thread_func, &tid_id[i]);
 
-  int j;
+  
   for ( j = 0; j < threads; j++)
     pthread_join(tids[j], NULL);
 
