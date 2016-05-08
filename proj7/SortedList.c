@@ -43,7 +43,8 @@ int SortedList_length(SortedList_t *list)
 	int length = 0;
 	if (opt_yield & SEARCH_YIELD)
 		pthread_yield();
-	for (SortedListElement_t *listptr = list; listptr->next != list; listptr = listptr->next) {
+	SortedListElement_t *listptr;
+	for (listptr = list; listptr->next != list; listptr = listptr->next) {
 		if (listptr->next->prev != listptr)
 			return -1;
 		length++;
