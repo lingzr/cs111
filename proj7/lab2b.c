@@ -29,7 +29,8 @@ void error(char *msg)
 
 void* thread_func(void* argc)
 {
-  for (int i = *(int *)argc; i < operations; i += threads) {
+  int i;
+  for (i = *(int *)argc; i < operations; i += threads) {
     switch (locktype) {
       case 'm':
         pthread_mutex_lock(&lock);
@@ -62,7 +63,7 @@ void* thread_func(void* argc)
         SortedList_length(&list);
   }
 
-for (int i = *(int *)argc; i < operations; i += threads) {
+for ( i = *(int *)argc; i < operations; i += threads) {
     switch (locktype) {
       case 'm':
         pthread_mutex_lock(&lock);
@@ -143,8 +144,8 @@ int main(int argc, char *argv[])
       keys[i+j] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[rand() % 62];
     keys[i+5] = '\0';
   }
-
-  for (int i = 0, j = 0; i < operations; i++, j += 6)
+  int i;
+  for (i = 0, j = 0; i < operations; i++, j += 6)
       element[i].key = &keys[j];
 
   pthread_t *tids = (pthread_t *)malloc(threads*sizeof(pthread_t));
@@ -161,10 +162,11 @@ int main(int argc, char *argv[])
   if (clock_gettime(CLOCK_MONOTONIC, &requestStart))
     error("clock_gettime fail\n");
 
-  for (int i = 0; i < threads; i++)
+  for ( i = 0; i < threads; i++)
     pthread_create(&tids[i], NULL, thread_func, &tid_id[i]);
 
-  for (int j = 0; j < threads; j++)
+  int j;
+  for ( j = 0; j < threads; j++)
     pthread_join(tids[j], NULL);
 
   if (clock_gettime(CLOCK_MONOTONIC, &requestEnd))
