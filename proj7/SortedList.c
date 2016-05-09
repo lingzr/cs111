@@ -56,11 +56,10 @@ int SortedList_length(SortedList_t *list)
 	int length = 0;
 	if (opt_yield & SEARCH_YIELD)
 		pthread_yield();
-	SortedListElement_t *listptr;
-	for (listptr = list; listptr->next != list; listptr = listptr->next) {
-		if (listptr->next->prev != listptr)
-			return -1;
+
+	SortedList_t* current = list;
+	//should insert after the current node
+	while (current->next != list )
 		length++;
-	}
 	return length;
 }
