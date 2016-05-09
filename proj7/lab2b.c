@@ -242,7 +242,7 @@ int main(int argc, char *argv[])
   free(tids);
   free(element);
 
-  long long total_time = diff(requestStart, requestEnd);
+  int total_time = diff(requestStart, requestEnd).tv_nsec;
   // (requestEnd.tv_sec - requestStart.tv_sec) * BILLION
   //   + (requestEnd.tv_nsec - requestStart.tv_nsec);
   fprintf(stdout, "%d num_thread x %d num_iteration x (insert + lookup//delete) = %d operations\n", 
