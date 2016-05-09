@@ -27,12 +27,17 @@ void SortedList_insert(SortedList_t *list, SortedListElement_t *element)
 		current = current->next;
 	}
 	//insert the element into the list
-	//at the end of the list
-	if (current==NULL || current->next == NULL)
+	//as the first element
+	if (current==NULL)
 	{
-		element->prev = current;
+
+	}
+	//at the end of the list
+	else if (current->next == NULL)
+	{
+		element->prev = list;
 		element->next = NULL;
-		current->next = element;
+		list->next = element;
 	}
 	//somewhere in the middle of the list
 	else
