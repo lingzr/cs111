@@ -39,6 +39,7 @@ void* thread_func(void* argc)
 {
   int i;
   for (i = *(int*)argc; i < operations; i += num_thread) {
+    printf("%d\n",i );
     switch (sync_s) {
       case 'm':
         pthread_mutex_lock(&lock);
