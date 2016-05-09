@@ -76,40 +76,46 @@ void* thread_func(void* argc)
     }
   }
   //get the length
-  switch (sync_s) 
+  if (sync_s=='m')
   {
-      case 'm':
-        pthread_mutex_lock(&lock);
-        SortedList_length(&list);
-        pthread_mutex_unlock(&lock);
-        break;
-      case 's':
-        while (__sync_lock_test_and_set(&locker, 1))
-          ;
-        SortedList_length(&list);
-        __sync_lock_release(&locker);
-        break;
-      default:
-        SortedList_length(&list);
+    pthread_mutex_lock(&lock);
+    SortedList_length(&list);
+    pthread_mutex_unlock(&lock);
+  }
+  else if (sync_s=='s')
+  {
+    while (__sync_lock_test_and_set(&locker, 1));
+    SortedList_length(&list);
+    __sync_lock_release(&locker);
+  }
+  else
+  {
+    SortedList_length(&list);
   }
 
+
 //lookup and delete.
-for ( i = *(int *)argc; i < operations; i += num_thread) {
-    switch (sync_s) {
-      case 'm':
-        pthread_mutex_lock(&lock);
-        SortedList_delete(SortedList_lookup(&list, element[i].key));
-        pthread_mutex_unlock(&lock);
-        break;
-      case 's':
-        while (__sync_lock_test_and_set(&locker, 1))
-          ;
-        SortedList_delete(SortedList_lookup(&list, element[i].key));
-        __sync_lock_release(&locker);
-        break;
-      default:
-        SortedList_delete(SortedList_lookup(&list, element[i].key));
-} } }
+for ( i = *(int *)argc; i < operations; i += num_thread) 
+  {
+
+    if (sync_s=='m')
+    {
+      pthread_mutex_lock(&lock);
+      SortedList_delete(SortedList_lookup(&list, element[i].key));
+      pthread_mutex_unlock(&lock);
+    } 
+    else if (sync_s=='s')
+    {
+      while (__sync_lock_test_and_set(&locker, 1));
+      SortedList_delete(SortedList_lookup(&list, element[i].key));
+      __sync_lock_release(&locker);
+    }
+    else
+    {
+      SortedList_delete(SortedList_lookup(&list, element[i].key));
+    }
+  } 
+}
 
 int main(int argc, char *argv[])
 {
