@@ -188,20 +188,20 @@ int main(int argc, char *argv[])
           break;
 
         case 'y':
-          char* temp;
-          temp = optarg;
+          char* temperal;
+          temperal = optarg;
           int i=0;
-          for (i=0; temp[i]!= '\0'; i++)
+          for (i=0; temperal[i]!= '\0'; i++)
           {
-            if (temp[i]=='i')
+            if (temperal[i]=='i')
             {
               opt_yield+=INSERT_YIELD;
             }
-            else if (temp[i]=='d')
+            else if (temperal[i]=='d')
             {
               opt_yield+=DELETE_YIELD;
             }
-            else if (temp[i]=='s')
+            else if (temperal[i]=='s')
             {
               opt_yield+=SEARCH_YIELD;
             }
