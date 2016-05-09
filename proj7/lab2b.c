@@ -174,22 +174,12 @@ int main(int argc, char *argv[])
         }
     }
   
+  //initialize all the node needed
   operations = num_thread * num_iteration;
   element = (SortedListElement_t *)malloc(operations*sizeof(SortedListElement_t));
-  if (element == NULL)
-    error("malloc fail\n");
 
-  // keys = (char *)malloc(operations*6*sizeof(char));
-  // if (keys == NULL)
-  //   error("malloc fail\n");
-  // srand(time(NULL));
-  // for (i = 0; i < operations * 6; i += 6) {
-    
-  //   for ( j = 0; j < 5; j++)
-  //     keys[i+j] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[rand() % 62];
-  //   keys[i+5] = '\0';
-  // }
-  
+
+  //generate key for each node
   for (i = 0; i < operations; i++)
   {
     char temp [5];
@@ -200,16 +190,14 @@ int main(int argc, char *argv[])
     temp[3]=65+rand()%60;
     temp[4]=65+rand()%60;
     element[i].key = temp;
-    printf("%s", element[i].key);
+
   }
 
   pthread_t *tids = (pthread_t *)malloc(num_thread*sizeof(pthread_t));
-  if (tids == NULL)
-    error("malloc fail\n");
+ 
 
   int *tid_id = (int *)malloc(num_thread*sizeof(int));
-  if (tid_id == NULL)
-    error("malloc fail\n");
+ 
   for ( i = 0; i < num_thread; i++)
     tid_id[i] = i;
 
@@ -217,8 +205,9 @@ int main(int argc, char *argv[])
   if (clock_gettime(CLOCK_MONOTONIC, &requestStart))
     error("clock_gettime fail\n");
 
-  for ( i = 0; i < num_thread; i++)
-    pthread_create(&tids[i], NULL, thread_func, &tid_id[i]);
+  long k;
+  for ( k = 0; k < num_thread; k++)
+    pthread_create(&tids[k], NULL, thread_func, (void*)k );
 
   
   for ( j = 0; j < num_thread; j++)
@@ -232,7 +221,6 @@ int main(int argc, char *argv[])
 
   free(tid_id);
   free(tids);
-  free(keys);
   free(element);
 
   long long total_time = (requestEnd.tv_sec - requestStart.tv_sec) * BILLION
