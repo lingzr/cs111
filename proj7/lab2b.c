@@ -94,6 +94,7 @@ void* thread_func(void* argc)
   }
 
 
+  SortedListElement_t* node_deleted
   //lookup and delete.
   for ( i = *(int *)argc; i < operations; i += num_thread) 
     {
@@ -101,20 +102,20 @@ void* thread_func(void* argc)
       if (sync_s=='m')
       {
         pthread_mutex_lock(&lock);
-        SortedListElement_t node_deleted = SortedList_lookup(&list, element[i].key);
+        node_deleted = SortedList_lookup(&list, element[i].key);
         SortedList_delete(node_deleted);
         pthread_mutex_unlock(&lock);
       } 
       else if (sync_s=='s')
       {
         while (__sync_lock_test_and_set(&locker, 1));
-        SortedListElement_t node_deleted = SortedList_lookup(&list, element[i].key);
+        node_deleted = SortedList_lookup(&list, element[i].key);
         SortedList_delete(node_deleted);
         __sync_lock_release(&locker);
       }
       else
       {
-        SortedListElement_t node_deleted = SortedList_lookup(&list, element[i].key);
+        node_deleted = SortedList_lookup(&list, element[i].key);
         SortedList_delete(node_deleted);
       }
     } 
