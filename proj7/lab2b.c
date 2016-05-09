@@ -10,8 +10,8 @@
 
 #define BILLION 1000000000
 
-  long num_thread=1;
-  long num_iteration=1;
+long num_thread=1;
+long num_iteration=1;
 int operations = 1;
 int opt_yield = 0;
 char* temperal;
@@ -92,54 +92,9 @@ int main(int argc, char *argv[])
 {
     int i, j;
     int c;
-    char *yieldptr;    
-    int yieldopt_count = 0;       
-//     while (1) {
-//     static struct option long_options[] =
-//     {
-//       {"num_thread", required_argument, 0, 't'},
-//       {"num_iteration", required_argument, 0, 'i'},
-//       {"yield", required_argument, 0, 'y'},
-//       {"sync", required_argument, 0, 's'}
-//     };
-//     int option_index = 0;
-//     c = getopt_long (argc, argv, "", long_options, &option_index);
-//     if (c == -1)
-//       break;
-//     switch (c) {
-//       case 0:
-//         break;
-//       case 'y':
-//         for (yieldptr = (char *)optarg; *yieldptr != '\0' && yieldopt_count < 3; yieldptr++, yieldopt_count++) {
-//           if (*yieldptr == 'i')
-//             opt_yield += 1;
-//           else if (*yieldptr == 'd')
-//             opt_yield += 2;
-//           else if (*yieldptr == 's')
-//             opt_yield += 4;
-//           else
-//             error("invalid yield option\n");
-//         }
-//         break;
-//       case 't':
-//         num_thread = atoi(optarg);
-//         if (num_thread < 1)
-//           error("invalid thread number\n");
-//         break;
-//       case 'i':
-//         num_iteration = atoi(optarg);
-//         if (num_iteration < 1)
-//           error("invalid iteration number\n");
-//         break;
-//       case 's':
-//         locktype = *(char *)optarg;
-//         if (!(locktype == 'm' || locktype == 's'))
-//           error("invalid sync option\n");
-//         break;
-//       default:
-//         error("invalid option\n");
-//   } 
-// }
+      
+         
+
   /*
     get the options
   */
@@ -223,6 +178,7 @@ int main(int argc, char *argv[])
   element = (SortedListElement_t *)malloc(operations*sizeof(SortedListElement_t));
   if (element == NULL)
     error("malloc fail\n");
+
   keys = (char *)malloc(operations*6*sizeof(char));
   if (keys == NULL)
     error("malloc fail\n");
@@ -235,7 +191,7 @@ int main(int argc, char *argv[])
   }
   
   for (i = 0, j = 0; i < operations; i++, j += 6)
-      element[i].key = &keys[j];
+      element[i].key = "sassss";
 
   pthread_t *tids = (pthread_t *)malloc(num_thread*sizeof(pthread_t));
   if (tids == NULL)
