@@ -205,6 +205,10 @@ int main(int argc, char *argv[])
             {
               opt_yield+=SEARCH_YIELD;
             }
+            else
+            {
+              error("invalid option!");
+            }
 
           }
           break;
