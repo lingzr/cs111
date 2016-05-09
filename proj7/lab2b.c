@@ -207,7 +207,7 @@ int main(int argc, char *argv[])
   for ( i = 0; i < num_thread; i++)
     tid_id[i] = i;
 
-  int k;
+  long k;
   for ( k = 0; k < num_thread; k++)
     pthread_create(&tids[k], NULL, thread_func, (void*) k );
 
