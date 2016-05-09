@@ -10,16 +10,23 @@
 
 #define BILLION 1000000000
 
-int threads = 1;
-int iterations = 1;
+int num_thread = 1;
+int num_iteration = 1;
 int operations = 1;
 int opt_yield = 0;
-char locktype = 'n';
+
 int spinlock = 0;
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 SortedListElement_t *element;
 SortedList_t list = {&list, &list, NULL};
 char *keys;
+//initialize a longlong counter to 0
+long long counter = 0;
+pthread_mutex_t count_mutex;
+
+char sync;
+volatile int lock = 0;
+
 
 void error(char *msg)
 {
@@ -30,8 +37,8 @@ void error(char *msg)
 void* thread_func(void* argc)
 {
   int i;
-  for (i = *(int *)argc; i < operations; i += threads) {
-    switch (locktype) {
+  for (i = *(int *)argc; i < operations; i += num_thread) {
+    switch (sync) {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_insert(&list, &element[i]);
@@ -47,7 +54,7 @@ void* thread_func(void* argc)
         SortedList_insert(&list, &element[i]);
   } }
 
-  switch (locktype) {
+  switch (sync) {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_length(&list);
@@ -63,8 +70,8 @@ void* thread_func(void* argc)
         SortedList_length(&list);
   }
 
-for ( i = *(int *)argc; i < operations; i += threads) {
-    switch (locktype) {
+for ( i = *(int *)argc; i < operations; i += num_thread) {
+    switch (sync) {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_delete(SortedList_lookup(&list, element[i].key));
@@ -86,53 +93,129 @@ int main(int argc, char *argv[])
     int c;
     char *yieldptr;    
     int yieldopt_count = 0;       
-    while (1) {
-    static struct option long_options[] =
+//     while (1) {
+//     static struct option long_options[] =
+//     {
+//       {"num_thread", required_argument, 0, 't'},
+//       {"num_iteration", required_argument, 0, 'i'},
+//       {"yield", required_argument, 0, 'y'},
+//       {"sync", required_argument, 0, 's'}
+//     };
+//     int option_index = 0;
+//     c = getopt_long (argc, argv, "", long_options, &option_index);
+//     if (c == -1)
+//       break;
+//     switch (c) {
+//       case 0:
+//         break;
+//       case 'y':
+//         for (yieldptr = (char *)optarg; *yieldptr != '\0' && yieldopt_count < 3; yieldptr++, yieldopt_count++) {
+//           if (*yieldptr == 'i')
+//             opt_yield += 1;
+//           else if (*yieldptr == 'd')
+//             opt_yield += 2;
+//           else if (*yieldptr == 's')
+//             opt_yield += 4;
+//           else
+//             error("invalid yield option\n");
+//         }
+//         break;
+//       case 't':
+//         num_thread = atoi(optarg);
+//         if (num_thread < 1)
+//           error("invalid thread number\n");
+//         break;
+//       case 'i':
+//         num_iteration = atoi(optarg);
+//         if (num_iteration < 1)
+//           error("invalid iteration number\n");
+//         break;
+//       case 's':
+//         locktype = *(char *)optarg;
+//         if (!(locktype == 'm' || locktype == 's'))
+//           error("invalid sync option\n");
+//         break;
+//       default:
+//         error("invalid option\n");
+//   } 
+// }
+  /*
+    get the options
+  */
+  long num_thread=1;
+  long num_iteration=1;
+  void *status;
+
+  while (1)
     {
-      {"threads", required_argument, 0, 't'},
-      {"iterations", required_argument, 0, 'i'},
-      {"yield", required_argument, 0, 'y'},
-      {"sync", required_argument, 0, 's'}
-    };
-    int option_index = 0;
-    c = getopt_long (argc, argv, "", long_options, &option_index);
-    if (c == -1)
-      break;
-    switch (c) {
-      case 0:
+      static struct option long_options[] =
+        {
+          //set value
+          {"num_thread",  required_argument, 0, 't'},
+          {"yield",  required_argument, 0, 'y'},
+          {"num_iteration",  required_argument, 0, 'i'},
+          {"sync",  required_argument, 0, 's'},
+          
+          {0, 0, 0, 0}
+        };
+      /* getopt_long stores the option index here. */
+      int option_index = 0;
+
+      char arg = getopt_long (argc, argv, "tis",
+                       long_options, &option_index);
+
+      /* Detect the end of the options. */
+      if (arg == -1)
         break;
-      case 'y':
-        for (yieldptr = (char *)optarg; *yieldptr != '\0' && yieldopt_count < 3; yieldptr++, yieldopt_count++) {
-          if (*yieldptr == 'i')
-            opt_yield += 1;
-          else if (*yieldptr == 'd')
-            opt_yield += 2;
-          else if (*yieldptr == 's')
-            opt_yield += 4;
-          else
-            error("invalid yield option\n");
+
+      switch (arg)
+        {
+        
+        case 0:
+          break;
+
+
+        case 't':
+          num_thread = atoi(optarg);
+          break;
+
+        case 'i':
+          num_iteration = atoi(optarg);
+          break;
+
+        case 's':
+          sync = optarg[0];
+          break;
+
+        case 'y':
+          char* temp = optarg[0];
+          int i=0;
+          for (i=0; temp[i]!= '\0'; i++)
+          {
+            if (temp[i]=='i')
+            {
+              opt_yield+=INSERT_YIELD;
+            }
+            else if (temp[i]=='d')
+            {
+              opt_yield+=DELETE_YIELD;
+            }
+            else if (temp[i]=='s')
+            {
+              opt_yield+=SEARCH_YIELD;
+            }
+
+          }
+          break;
+
+        //default:
+          //return 0;
+
+
         }
-        break;
-      case 't':
-        threads = atoi(optarg);
-        if (threads < 1)
-          error("invalid thread number\n");
-        break;
-      case 'i':
-        iterations = atoi(optarg);
-        if (iterations < 1)
-          error("invalid iteration number\n");
-        break;
-      case 's':
-        locktype = *(char *)optarg;
-        if (!(locktype == 'm' || locktype == 's'))
-          error("invalid sync option\n");
-        break;
-      default:
-        error("invalid option\n");
-  } }
+    }
   
-  operations = threads * iterations;
+  operations = num_thread * num_iteration;
   element = (SortedListElement_t *)malloc(operations*sizeof(SortedListElement_t));
   if (element == NULL)
     error("malloc fail\n");
@@ -150,31 +233,31 @@ int main(int argc, char *argv[])
   for (i = 0, j = 0; i < operations; i++, j += 6)
       element[i].key = &keys[j];
 
-  pthread_t *tids = (pthread_t *)malloc(threads*sizeof(pthread_t));
+  pthread_t *tids = (pthread_t *)malloc(num_thread*sizeof(pthread_t));
   if (tids == NULL)
     error("malloc fail\n");
 
-  int *tid_id = (int *)malloc(threads*sizeof(int));
+  int *tid_id = (int *)malloc(num_thread*sizeof(int));
   if (tid_id == NULL)
     error("malloc fail\n");
-  for ( i = 0; i < threads; i++)
+  for ( i = 0; i < num_thread; i++)
     tid_id[i] = i;
 
   struct timespec requestStart, requestEnd;
   if (clock_gettime(CLOCK_MONOTONIC, &requestStart))
     error("clock_gettime fail\n");
 
-  for ( i = 0; i < threads; i++)
+  for ( i = 0; i < num_thread; i++)
     pthread_create(&tids[i], NULL, thread_func, &tid_id[i]);
 
   
-  for ( j = 0; j < threads; j++)
+  for ( j = 0; j < num_thread; j++)
     pthread_join(tids[j], NULL);
 
   if (clock_gettime(CLOCK_MONOTONIC, &requestEnd))
     error("clock_gettime fail\n");
 
-	if (locktype == 'm')
+	if (sync == 'm')
 		pthread_mutex_destroy(&lock);
 
   free(tid_id);
@@ -184,8 +267,8 @@ int main(int argc, char *argv[])
 
   long long total_time = (requestEnd.tv_sec - requestStart.tv_sec) * BILLION
     + (requestEnd.tv_nsec - requestStart.tv_nsec);
-  fprintf(stdout, "%d threads x %d iterations x (insert + lookup//delete) = %d operations\n", 
-    threads, iterations, operations * 2);
+  fprintf(stdout, "%d num_thread x %d num_iteration x (insert + lookup//delete) = %d operations\n", 
+    num_thread, num_iteration, operations * 2);
   fprintf(stdout, "elapsed time: %lldns\n", total_time);
   fprintf(stdout, "per operation: %lldns\n", total_time / operations / 2);
 
