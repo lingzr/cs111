@@ -94,7 +94,7 @@ void* thread_func(void* argc)
   }
 
 
-  SortedListElement_t* node_deleted
+  SortedListElement_t* node_deleted;
   //lookup and delete.
   for ( i = *(int *)argc; i < operations; i += num_thread) 
     {
