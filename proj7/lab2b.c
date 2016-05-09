@@ -8,7 +8,7 @@
 #include <string.h>
 #include <time.h>
 
-#define BILLION 1000000000
+
 
 long num_thread=1;
 long num_iteration=1;
@@ -16,7 +16,7 @@ int operations = 1;
 int opt_yield = 0;
 char* temperal;
 
-int spinlock = 0;
+int locker = 0;
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 SortedListElement_t *element;
 SortedList_t list = {&list, &list, NULL};
@@ -55,39 +55,45 @@ struct timespec diff(struct timespec start, struct timespec end)
 void* thread_func(void* argc)
 {
   int i;
-  for (i = *(int*)argc; i < operations; i += num_thread) {
-    switch (sync_s) {
+  //insert 
+  for (i = *(int*)argc; i < operations; i += num_thread) 
+  {
+    switch (sync_s) 
+    {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_insert(&list, &element[i]);
         pthread_mutex_unlock(&lock);
         break;
       case 's':
-        while (__sync_lock_test_and_set(&spinlock, 1))
+        while (__sync_lock_test_and_set(&locker, 1))
           ;
         SortedList_insert(&list, &element[i]);
-        __sync_lock_release(&spinlock);
+        __sync_lock_release(&locker);
         break;
       default:
         SortedList_insert(&list, &element[i]);
-  } }
-
-  switch (sync_s) {
+    } 
+  }
+  //get the length
+  switch (sync_s) 
+  {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_length(&list);
         pthread_mutex_unlock(&lock);
         break;
       case 's':
-        while (__sync_lock_test_and_set(&spinlock, 1))
+        while (__sync_lock_test_and_set(&locker, 1))
           ;
         SortedList_length(&list);
-        __sync_lock_release(&spinlock);
+        __sync_lock_release(&locker);
         break;
       default:
         SortedList_length(&list);
   }
 
+//lookup and delete.
 for ( i = *(int *)argc; i < operations; i += num_thread) {
     switch (sync_s) {
       case 'm':
@@ -96,10 +102,10 @@ for ( i = *(int *)argc; i < operations; i += num_thread) {
         pthread_mutex_unlock(&lock);
         break;
       case 's':
-        while (__sync_lock_test_and_set(&spinlock, 1))
+        while (__sync_lock_test_and_set(&locker, 1))
           ;
         SortedList_delete(SortedList_lookup(&list, element[i].key));
-        __sync_lock_release(&spinlock);
+        __sync_lock_release(&locker);
         break;
       default:
         SortedList_delete(SortedList_lookup(&list, element[i].key));
@@ -251,17 +257,6 @@ int main(int argc, char *argv[])
   if (SortedList_length(&list)!=0)
   fprintf(stderr,"ERROR: final count = %lld\n", counter);
 
-
-
-  // fprintf(stdout, "%d num_thread x %d num_iteration x (insert + lookup//delete) = %d operations\n", 
-  //   num_thread, num_iteration, operations * 2);
-  // fprintf(stdout, "elapsed time: %lldns\n", total_time);
-  // fprintf(stdout, "per operation: %lldns\n", total_time / operations / 2);
-
-  // if (SortedList_length(&list)) {
-  //   fprintf(stderr, "ERROR!\n");
-  //   exit(1);
-  // }
 
   exit(0);
 }
