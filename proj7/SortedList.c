@@ -43,7 +43,7 @@ SortedListElement_t *SortedList_lookup(SortedList_t *list, const char *key)
 
 	SortedList_t* current = list;
 	//should insert after the current node
-	while (current->next != list && strcmp(current->next->key,element->key)!=0 )
+	while (current->next != list && strcmp(current->next->key,key)!=0 )
 		current = current->next;
 
 	return current->next;
