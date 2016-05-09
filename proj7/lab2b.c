@@ -25,7 +25,7 @@ long long counter = 0;
 pthread_mutex_t count_mutex;
 
 char sync_s;
-volatile int lock = 0;
+// volatile int lock = 0;
 
 
 void error(char *msg)
