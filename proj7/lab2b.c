@@ -116,15 +116,9 @@ void* thread_func(void* argc)
 int main(int argc, char *argv[])
 {
     int i, j;
-    // int c;
-      
-         
-
   /*
     get the options
   */
-
-  void *status;
 
   while (1)
     {
