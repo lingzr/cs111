@@ -10,7 +10,8 @@
 
 #define BILLION 1000000000
 
-
+  long num_thread=1;
+  long num_iteration=1;
 int operations = 1;
 int opt_yield = 0;
 char* temperal;
@@ -142,8 +143,7 @@ int main(int argc, char *argv[])
   /*
     get the options
   */
-  long num_thread=1;
-  long num_iteration=1;
+
   void *status;
 
   while (1)
