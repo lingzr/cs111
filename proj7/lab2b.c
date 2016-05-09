@@ -205,7 +205,7 @@ int main(int argc, char *argv[])
   if (clock_gettime(CLOCK_MONOTONIC, &requestStart))
     error("clock_gettime fail\n");
 
-  long k;
+  int k;
   for ( k = 0; k < num_thread; k++)
     pthread_create(&tids[k], NULL, thread_func, (void*)k );
 
