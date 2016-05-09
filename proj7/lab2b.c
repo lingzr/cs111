@@ -28,13 +28,6 @@ pthread_mutex_t count_mutex;
 char sync_s;
 // volatile int lock = 0;
 
-
-void error(char *msg)
-{
-    fprintf(stderr, msg);
-    exit(2);
-}
-
 /*
   calculate the diff of two timers
 */
@@ -93,9 +86,8 @@ void* thread_func(void* argc)
     SortedList_length(&list);
   }
 
-
-  SortedListElement_t* node_deleted;
   //lookup and delete.
+  SortedListElement_t* node_deleted;
   for ( i = *(int *)argc; i < operations; i += num_thread) 
     {
 
@@ -194,7 +186,7 @@ int main(int argc, char *argv[])
             }
             else
             {
-              error("invalid option!");
+              fprintf(stderr, "invalid option!\n");
             }
 
           }
@@ -231,8 +223,9 @@ int main(int argc, char *argv[])
 
 
   struct timespec requestStart, requestEnd;
-  if (clock_gettime(CLOCK_MONOTONIC, &requestStart))
-    error("clock_gettime fail\n");
+  clock_gettime(CLOCK_MONOTONIC, &requestStart);
+    
+ 
 
   //an integer array to hold ids
   int *thread_id = (int *)malloc(num_thread*sizeof(int));
@@ -248,9 +241,8 @@ int main(int argc, char *argv[])
   for ( j = 0; j < num_thread; j++)
     pthread_join(tids[j], NULL);
 
-  if (clock_gettime(CLOCK_MONOTONIC, &requestEnd))
-    error("clock_gettime fail\n");
-
+  clock_gettime(CLOCK_MONOTONIC, &requestEnd);
+   
 	if (sync_s == 'm')
 		pthread_mutex_destroy(&lock);
 
