@@ -38,7 +38,7 @@ void error(char *msg)
 void* thread_func(void* argc)
 {
   int i;
-  for (i = (int)argc; i < operations; i += num_thread) {
+  for (i = *(int*)argc; i < operations; i += num_thread) {
     switch (sync_s) {
       case 'm':
         pthread_mutex_lock(&lock);
@@ -205,9 +205,9 @@ int main(int argc, char *argv[])
   if (clock_gettime(CLOCK_MONOTONIC, &requestStart))
     error("clock_gettime fail\n");
 
-  long k;
+  int k;
   for ( k = 0; k < num_thread; k++)
-    pthread_create(&tids[k], NULL, thread_func, (long*)k );
+    pthread_create(&tids[k], NULL, thread_func, &k );
 
   
   for ( j = 0; j < num_thread; j++)
