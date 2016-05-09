@@ -60,6 +60,9 @@ int SortedList_length(SortedList_t *list)
 	SortedList_t* current = list;
 	//should insert after the current node
 	while (current->next != list )
+	{
+		current = current->next;
 		length++;
+	}
 	return length;
 }
