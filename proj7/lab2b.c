@@ -188,7 +188,7 @@ int main(int argc, char *argv[])
           break;
 
         case 'y':
-          char* temp = optarg;
+          char* temp = (char*)optarg;
           int i=0;
           for (i=0; temp[i]!= '\0'; i++)
           {
