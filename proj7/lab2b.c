@@ -179,19 +179,27 @@ int main(int argc, char *argv[])
   if (element == NULL)
     error("malloc fail\n");
 
-  keys = (char *)malloc(operations*6*sizeof(char));
-  if (keys == NULL)
-    error("malloc fail\n");
-  srand(time(NULL));
-  for (i = 0; i < operations * 6; i += 6) {
+  // keys = (char *)malloc(operations*6*sizeof(char));
+  // if (keys == NULL)
+  //   error("malloc fail\n");
+  // srand(time(NULL));
+  // for (i = 0; i < operations * 6; i += 6) {
     
-    for ( j = 0; j < 5; j++)
-      keys[i+j] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[rand() % 62];
-    keys[i+5] = '\0';
-  }
+  //   for ( j = 0; j < 5; j++)
+  //     keys[i+j] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[rand() % 62];
+  //   keys[i+5] = '\0';
+  // }
   
-  for (i = 0, j = 0; i < operations; i++, j += 6)
-      element[i].key = "sassss";
+  for (i = 0; i < operations; i++)
+  {
+    char temp [5];
+    temp[0]=65+rand()%60;
+    temp[1]=65+rand()%60;
+    temp[2]=65+rand()%60;
+    temp[3]=65+rand()%60;
+    temp[4]=65+rand()%60;
+    element[i].key = temp;
+  }
 
   pthread_t *tids = (pthread_t *)malloc(num_thread*sizeof(pthread_t));
   if (tids == NULL)
