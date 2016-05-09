@@ -26,7 +26,7 @@ long long counter = 0;
 pthread_mutex_t count_mutex;
 
 char sync_s;
-// volatile int lock = 0;
+
 
 /*
   calculate the diff of two timers
@@ -115,8 +115,8 @@ void* thread_func(void* argc)
 
 int main(int argc, char *argv[])
 {
-    int i, j;
-    int c;
+    // int i, j;
+    // int c;
       
          
 
