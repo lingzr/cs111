@@ -16,37 +16,48 @@ void SortedList_insert(SortedList_t *list, SortedListElement_t *element)
 	// element->next->prev = element;
 	//current points to the first node
 	//cureent is used to trace the list
-	SortedList_t* current = list->next;
-	if (opt_yield & INSERT_YIELD)
-		pthread_yield();
-	//make the current points to the first element whose key is bigger or equal to the element.
-	while (current!= NULL && strcmp(current->key,element->key)<0)
-	{
-		if (current->next == NULL)
-			break;
-		current = current->next;
-	}
-	//insert the element into the list
-	//as the first element
-	if (current==NULL)
-	{
+	// SortedList_t* current = list->next;
+	// if (opt_yield & INSERT_YIELD)
+	// 	pthread_yield();
+	// //make the current points to the first element whose key is bigger or equal to the element.
+	// while (current!= NULL && strcmp(current->key,element->key)<0)
+	// {
+	// 	if (current->next == NULL)
+	// 		break;
+	// 	current = current->next;
+	// }
+	// //insert the element into the list
+	// //as the first element
+	// if (current==NULL)
+	// {
 
-	}
-	//at the end of the list
-	else if (current->next == NULL)
-	{
-		element->prev = list;
-		element->next = NULL;
-		list->next = element;
-	}
-	//somewhere in the middle of the list
-	else
-	{
-		element->prev = current->prev;
-		element->next = current;
-		current->prev->next = element;
-		current->prev = element;
-	}
+	// }
+	// //at the end of the list
+	// else if (current->next == NULL)
+	// {
+	// 	element->prev = list;
+	// 	element->next = NULL;
+	// 	list->next = element;
+	// }
+	// //somewhere in the middle of the list
+	// else
+	// {
+	// 	element->prev = current->prev;
+	// 	element->next = current;
+	// 	current->prev->next = element;
+	// 	current->prev = element;
+	// }
+	SortedList_t* current = list;
+	//should insert after the current node
+	while (current->next != list && strcmp(current->next->key,element->key)<0 )
+		current = current->next;
+
+	element->prev = current;
+	element->next = current->next;
+	current->next->prev = element;
+	current->next = element;
+
+
 }
 
 int SortedList_delete( SortedListElement_t *element)
