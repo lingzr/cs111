@@ -242,18 +242,26 @@ int main(int argc, char *argv[])
   free(tids);
   free(element);
 
-  int total_time = diff(requestStart, requestEnd).tv_nsec;
-  // (requestEnd.tv_sec - requestStart.tv_sec) * BILLION
-  //   + (requestEnd.tv_nsec - requestStart.tv_nsec);
-  fprintf(stdout, "%d num_thread x %d num_iteration x (insert + lookup//delete) = %d operations\n", 
-    num_thread, num_iteration, operations * 2);
-  fprintf(stdout, "elapsed time: %lldns\n", total_time);
-  fprintf(stdout, "per operation: %lldns\n", total_time / operations / 2);
+  int elapsed_time = diff(requestStart, requestEnd).tv_nsec;
 
-  if (SortedList_length(&list)) {
-    fprintf(stderr, "ERROR!\n");
-    exit(1);
-  }
+  //print discription
+  printf("%ld threads x %ld iterations x (insert + lookup/delete) = %ld operations\n",  num_thread, num_iteration, operations*2);
+  printf("elapsed time: %dns\n", elapsed_time);
+  printf("per operation: %ldns\n", elapsed_time/(num_iteration*num_thread)/2);
+  if (SortedList_length(&list!=0)
+  fprintf(stderr,"ERROR: final count = %lld\n", counter);
+
+
+
+  // fprintf(stdout, "%d num_thread x %d num_iteration x (insert + lookup//delete) = %d operations\n", 
+  //   num_thread, num_iteration, operations * 2);
+  // fprintf(stdout, "elapsed time: %lldns\n", total_time);
+  // fprintf(stdout, "per operation: %lldns\n", total_time / operations / 2);
+
+  // if (SortedList_length(&list)) {
+  //   fprintf(stderr, "ERROR!\n");
+  //   exit(1);
+  // }
 
   exit(0);
 }
