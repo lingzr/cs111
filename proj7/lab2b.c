@@ -221,7 +221,7 @@ int main(int argc, char *argv[])
 	if (sync_s == 'm')
 		pthread_mutex_destroy(&lock);
 
-  free(tid_id);
+  free(thread_id);
   free(tids);
   free(element);
 
