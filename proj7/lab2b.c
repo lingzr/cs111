@@ -14,6 +14,7 @@ int num_thread = 1;
 int num_iteration = 1;
 int operations = 1;
 int opt_yield = 0;
+char* temperal;
 
 int spinlock = 0;
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -151,9 +152,9 @@ int main(int argc, char *argv[])
       static struct option long_options[] =
         {
           //set value
-          {"num_thread",  required_argument, 0, 't'},
+          {"threads",  required_argument, 0, 't'},
           {"yield",  required_argument, 0, 'y'},
-          {"num_iteration",  required_argument, 0, 'i'},
+          {"iterations",  required_argument, 0, 'i'},
           {"sync",  required_argument, 0, 's'},
           
           {0, 0, 0, 0}
@@ -188,7 +189,6 @@ int main(int argc, char *argv[])
           break;
 
         case 'y':
-          char* temperal;
           temperal = optarg;
           int i=0;
           for (i=0; temperal[i]!= '\0'; i++)
