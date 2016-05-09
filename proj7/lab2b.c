@@ -24,7 +24,7 @@ char *keys;
 long long counter = 0;
 pthread_mutex_t count_mutex;
 
-char sync;
+char sync_s;
 volatile int lock = 0;
 
 
@@ -38,7 +38,7 @@ void* thread_func(void* argc)
 {
   int i;
   for (i = *(int *)argc; i < operations; i += num_thread) {
-    switch (sync) {
+    switch (sync_s) {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_insert(&list, &element[i]);
@@ -54,7 +54,7 @@ void* thread_func(void* argc)
         SortedList_insert(&list, &element[i]);
   } }
 
-  switch (sync) {
+  switch (sync_s) {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_length(&list);
@@ -71,7 +71,7 @@ void* thread_func(void* argc)
   }
 
 for ( i = *(int *)argc; i < operations; i += num_thread) {
-    switch (sync) {
+    switch (sync_s) {
       case 'm':
         pthread_mutex_lock(&lock);
         SortedList_delete(SortedList_lookup(&list, element[i].key));
@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
           break;
 
         case 's':
-          sync = optarg[0];
+          sync_s = optarg[0];
           break;
 
         case 'y':
@@ -257,7 +257,7 @@ int main(int argc, char *argv[])
   if (clock_gettime(CLOCK_MONOTONIC, &requestEnd))
     error("clock_gettime fail\n");
 
-	if (sync == 'm')
+	if (sync_s == 'm')
 		pthread_mutex_destroy(&lock);
 
   free(tid_id);
