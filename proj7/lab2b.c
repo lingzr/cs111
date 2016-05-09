@@ -193,6 +193,7 @@ int main(int argc, char *argv[])
   for (i = 0; i < operations; i++)
   {
     char temp [5];
+    srand(i);
     temp[0]=65+rand()%60;
     temp[1]=65+rand()%60;
     temp[2]=65+rand()%60;
