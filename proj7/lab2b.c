@@ -35,6 +35,23 @@ void error(char *msg)
     exit(2);
 }
 
+/*
+  calculate the diff of two timers
+*/
+
+struct timespec diff(struct timespec start, struct timespec end)
+{
+  struct timespec temp;
+  if ((end.tv_nsec-start.tv_nsec)<0) {
+    temp.tv_sec = end.tv_sec-start.tv_sec-1;
+    temp.tv_nsec = 1000000000+end.tv_nsec-start.tv_nsec;
+  } else {
+    temp.tv_sec = end.tv_sec-start.tv_sec;
+    temp.tv_nsec = end.tv_nsec-start.tv_nsec;
+  }
+  return temp;
+}
+
 void* thread_func(void* argc)
 {
   int i;
@@ -225,8 +242,9 @@ int main(int argc, char *argv[])
   free(tids);
   free(element);
 
-  long long total_time = (requestEnd.tv_sec - requestStart.tv_sec) * BILLION
-    + (requestEnd.tv_nsec - requestStart.tv_nsec);
+  long long total_time = diff(requestStart, requestEnd);
+  // (requestEnd.tv_sec - requestStart.tv_sec) * BILLION
+  //   + (requestEnd.tv_nsec - requestStart.tv_nsec);
   fprintf(stdout, "%d num_thread x %d num_iteration x (insert + lookup//delete) = %d operations\n", 
     num_thread, num_iteration, operations * 2);
   fprintf(stdout, "elapsed time: %lldns\n", total_time);
