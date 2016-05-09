@@ -94,27 +94,30 @@ void* thread_func(void* argc)
   }
 
 
-//lookup and delete.
-for ( i = *(int *)argc; i < operations; i += num_thread) 
-  {
+  //lookup and delete.
+  for ( i = *(int *)argc; i < operations; i += num_thread) 
+    {
 
-    if (sync_s=='m')
-    {
-      pthread_mutex_lock(&lock);
-      SortedList_delete(SortedList_lookup(&list, element[i].key));
-      pthread_mutex_unlock(&lock);
+      if (sync_s=='m')
+      {
+        pthread_mutex_lock(&lock);
+        SortedListElement_t node_deleted = SortedList_lookup(&list, element[i].key);
+        SortedList_delete(node_deleted);
+        pthread_mutex_unlock(&lock);
+      } 
+      else if (sync_s=='s')
+      {
+        while (__sync_lock_test_and_set(&locker, 1));
+        SortedListElement_t node_deleted = SortedList_lookup(&list, element[i].key);
+        SortedList_delete(node_deleted);
+        __sync_lock_release(&locker);
+      }
+      else
+      {
+        SortedListElement_t node_deleted = SortedList_lookup(&list, element[i].key);
+        SortedList_delete(node_deleted);
+      }
     } 
-    else if (sync_s=='s')
-    {
-      while (__sync_lock_test_and_set(&locker, 1));
-      SortedList_delete(SortedList_lookup(&list, element[i].key));
-      __sync_lock_release(&locker);
-    }
-    else
-    {
-      SortedList_delete(SortedList_lookup(&list, element[i].key));
-    }
-  } 
 }
 
 int main(int argc, char *argv[])
