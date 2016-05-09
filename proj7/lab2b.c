@@ -58,22 +58,22 @@ void* thread_func(void* argc)
   //insert 
   for (i = *(int*)argc; i < operations; i += num_thread) 
   {
-    switch (sync_s) 
+    if (sync_s == 'm')
     {
-      case 'm':
-        pthread_mutex_lock(&lock);
-        SortedList_insert(&list, &element[i]);
-        pthread_mutex_unlock(&lock);
-        break;
-      case 's':
-        while (__sync_lock_test_and_set(&locker, 1))
-          ;
+      pthread_mutex_lock(&lock);
+      SortedList_insert(&list, &element[i]);
+      pthread_mutex_unlock(&lock);
+    }
+    else if (sync_s=='s')
+    {
+      while (__sync_lock_test_and_set(&locker, 1));
         SortedList_insert(&list, &element[i]);
         __sync_lock_release(&locker);
-        break;
-      default:
-        SortedList_insert(&list, &element[i]);
-    } 
+    }
+    else
+    {
+      SortedList_insert(&list, &element[i]);
+    }
   }
   //get the length
   switch (sync_s) 
