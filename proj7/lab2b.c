@@ -10,8 +10,7 @@
 
 #define BILLION 1000000000
 
-int num_thread = 1;
-int num_iteration = 1;
+
 int operations = 1;
 int opt_yield = 0;
 char* temperal;
