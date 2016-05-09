@@ -196,18 +196,20 @@ int main(int argc, char *argv[])
   pthread_t *tids = (pthread_t *)malloc(num_thread*sizeof(pthread_t));
  
 
-  int *tid_id = (int *)malloc(num_thread*sizeof(int));
- 
-  for ( i = 0; i < num_thread; i++)
-    tid_id[i] = i;
 
   struct timespec requestStart, requestEnd;
   if (clock_gettime(CLOCK_MONOTONIC, &requestStart))
     error("clock_gettime fail\n");
 
+  //an integer array to hold ids
+  int *tid_id = (int *)malloc(num_thread*sizeof(int));
+ 
+  for ( i = 0; i < num_thread; i++)
+    tid_id[i] = i;
+
   int k;
   for ( k = 0; k < num_thread; k++)
-    pthread_create(&tids[k], NULL, thread_func, &tid_id[k] );
+    pthread_create(&tids[k], NULL, thread_func, (void*) k );
 
   
   for ( j = 0; j < num_thread; j++)
