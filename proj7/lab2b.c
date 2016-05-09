@@ -200,7 +200,7 @@ int main(int argc, char *argv[])
     temp[3]=65+rand()%60;
     temp[4]=65+rand()%60;
     element[i].key = temp;
-    console.log("%s", element[i].key);
+    printf("%s", element[i].key);
   }
 
   pthread_t *tids = (pthread_t *)malloc(num_thread*sizeof(pthread_t));
