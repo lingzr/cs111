@@ -248,7 +248,7 @@ int main(int argc, char *argv[])
   printf("%ld threads x %ld iterations x (insert + lookup/delete) = %ld operations\n",  num_thread, num_iteration, operations*2);
   printf("elapsed time: %dns\n", elapsed_time);
   printf("per operation: %ldns\n", elapsed_time/(num_iteration*num_thread)/2);
-  if (SortedList_length(&list!=0)
+  if (SortedList_length(&list)!=0)
   fprintf(stderr,"ERROR: final count = %lld\n", counter);
 
 
