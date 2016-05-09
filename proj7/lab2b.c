@@ -198,7 +198,7 @@ int main(int argc, char *argv[])
     temp[1]=65+rand()%60;
     temp[2]=65+rand()%60;
     temp[3]=65+rand()%60;
-    temp[4]=65+rand()%60;
+    temp[4]='\0';
     element[i].key = temp;
   }
 
