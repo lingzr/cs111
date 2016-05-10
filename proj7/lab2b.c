@@ -202,21 +202,22 @@ int main(int argc, char *argv[])
   //generate key for each node
   for (i = 0; i < operations; i++)
   {
-    // char temp [5];
+    char temp [5];
     
-    // temp[0]=65+rand()%60;
-    // temp[1]=65+rand()%60;
-    // temp[2]=65+rand()%60;
-    // temp[3]=65+rand()%60;
-    // temp[4]=65+rand()%60;
-    // element[i].key = temp;
+    temp[0]=65+rand()%60;
+    temp[1]=65+rand()%60;
+    temp[2]=65+rand()%60;
+    temp[3]=65+rand()%60;
+    temp[4]=65+rand()%60;
+    printf("!!!%s\n",temp );
+    element[i].key = temp;
 
-    element[i].key = (char*) malloc (5*sizeof(char));
-    element[i].key[0] = 65+rand()%60;
-    element[i].key[1] = 65+rand()%60;
-    element[i].key[2] = 65+rand()%60;
-    element[i].key[3] = 65+rand()%60;
-    element[i].key[4] = 65+rand()%60;
+    // element[i].key = (char*) malloc (5*sizeof(char));
+    // element[i].key[0] = 65+rand()%60;
+    // element[i].key[1] = 65+rand()%60;
+    // element[i].key[2] = 65+rand()%60;
+    // element[i].key[3] = 65+rand()%60;
+    // element[i].key[4] = 65+rand()%60;
 
 
 
