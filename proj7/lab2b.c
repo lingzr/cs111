@@ -108,6 +108,7 @@ void* thread_func(void* argc)
       else
       {
         node_deleted = SortedList_lookup(&list, element[i].key);
+        printf("%s\n", node_deleted->key);
         SortedList_delete(node_deleted);
       }
     } 
@@ -237,12 +238,7 @@ int main(int argc, char *argv[])
 
   clock_gettime(CLOCK_MONOTONIC, &requestEnd);
    
-	if (sync_s == 'm')
-		pthread_mutex_destroy(&lock);
 
-  free(thread_id);
-  free(tids);
-  free(element);
 
   int elapsed_time = diff(requestStart, requestEnd).tv_nsec;
 
