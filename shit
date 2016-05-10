@@ -1,0 +1,22 @@
+echo unprotected
+./lab2b --threads=1 --iterations=1000  --sync=m
+
+echo mutex protected
+./lab2b --threads=1 --iterations=1000  --sync=m
+./lab2b --threads=2 --iterations=1000  --sync=m
+./lab2b --threads=3 --iterations=1000  --sync=m
+./lab2b --threads=4 --iterations=1000  --sync=m
+./lab2b --threads=5 --iterations=1000  --sync=m
+./lab2b --threads=6 --iterations=1000  --sync=m
+./lab2b --threads=7 --iterations=1000  --sync=m
+./lab2b --threads=8 --iterations=1000  --sync=m
+
+echo spinlock protected
+./lab2b --threads=1 --iterations=1000  --sync=s
+./lab2b --threads=2 --iterations=1000  --sync=s
+./lab2b --threads=3 --iterations=1000  --sync=s
+./lab2b --threads=4 --iterations=1000  --sync=s
+./lab2b --threads=5 --iterations=1000  --sync=s
+./lab2b --threads=6 --iterations=1000  --sync=s
+./lab2b --threads=7 --iterations=1000  --sync=s
+./lab2b --threads=8 --iterations=1000  --sync=s
