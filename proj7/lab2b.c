@@ -108,7 +108,7 @@ void* thread_func(void* argc)
       else
       {
         node_deleted = SortedList_lookup(&list, element[i].key);
-        printf("%s\n", node_deleted->key);
+        
         SortedList_delete(node_deleted);
       }
     } 
