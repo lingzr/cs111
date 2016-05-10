@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
   //generate key for each node
   for (i = 0; i < operations; i++)
   {
-    char temp = (char*) malloc (5*sizeof(char));
+    char* temp = (char*) malloc (5*sizeof(char));
     
     temp[0]=65+rand()%60;
     temp[1]=65+rand()%60;
