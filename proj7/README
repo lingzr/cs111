@@ -1,35 +1,22 @@
-Shaochong Zhang
-304451718
+Tao Xiang
+804424176
+
+I'd like to use 4 slip days
 
 
 
-Makefile:
-"make" will compile the executable.
-"make dist" make the tarball.
-lab2b.c:
-Source code of the test.
-SortedList.h:
-Source coed of declaration of linked-list functions.
-SortedList.c:
-Source code of implementation of linked-list functions.
-graph1.png:
-Time per operation against number of iterations of single thread, non-yield
-graph2.png:
-True time per operation (time per operation divided by number of threads) against number of threads.
-Number of iterations is 1000.
 
 
 
 Questions:
 2B.1A:
-The counting is O(1) operation, so the time per operation doesn't change when the iteraions increases.
-Insert, lookup, and find lenght in a list are all O(n) operations (n is lenghth of list which equals threads * iterations), 
-so when the number of interations increases, the time per operation also increases linearly.
-The decrease at the beginning of the graph is due to constant overhead. 
+=insert, lookup and delete are all O(n) operations so when the number of iterations goes up, the time per operation will incrase
+=>the reason time per operation drop first is due to the function overhead. 
+
+
 2B.1B: 
-Divide time per operation by the number of iterations.
+divide the time per operation by the numer of threads
 
 2B.2A:
-In linked-list, the critical section is much larger, so the lock is held much longer in each operation.
-Therefore probibility of racing is much higher for the same number of threads.
-Thus more threads are blocked and CPU is wasted.
+=>observation: the probability of racing increased
+=>since we are using the linked list, the size of critical section increase, so a single thread will hold the locker much longer.
