@@ -209,7 +209,6 @@ int main(int argc, char *argv[])
     temp[2]=65+rand()%60;
     temp[3]=65+rand()%60;
     temp[4]=65+rand()%60;
-    printf("!!!%s\n",temp );
     element[i].key = temp;
 
     // element[i].key = (char*) malloc (5*sizeof(char));
