@@ -10,6 +10,9 @@ echo mutex
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=800
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=900
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=1000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=2000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=3000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=4000
 echo spinlock
 
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=100
@@ -22,6 +25,9 @@ echo spinlock
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=800
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=900
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=1000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=2000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=3000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=4000
 
 echo unprotected
 ./lab2b --threads=1 --iterations=1000 --yield=id --sync=s --lists=10
