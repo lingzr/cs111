@@ -1,33 +1,33 @@
 echo mutex
 
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=100
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=200
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=300
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=400
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=500
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=600
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=700
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=800
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=900
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=1000
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=2000
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=3000
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=4000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=1
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=2
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=3
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=4
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=5
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=6
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=7
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=8
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=9
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=10
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=11
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=12
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=m --lists=13
 echo spinlock
 
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=100
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=200
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=300
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=400
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=500
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=600
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=700
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=800
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=900
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=1000
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=2000
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=3000
-./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=4000
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=1
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=2
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=3
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=4
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=5
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=6
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=7
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=8
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=9
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=10
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=11
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=12
+./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=13
 
 echo unprotected
 ./lab2b --threads=1 --iterations=1000 --yield=id --sync=s --lists=10
