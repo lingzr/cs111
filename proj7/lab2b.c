@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
           {"yield",  required_argument, 0, 'y'},
           {"iterations",  required_argument, 0, 'i'},
           {"sync",  required_argument, 0, 's'},
-          {"lists",  required_argument, 0, 'l'}
+          {"lists",  required_argument, 0, 'l'},
           
           {0, 0, 0, 0}
         };
