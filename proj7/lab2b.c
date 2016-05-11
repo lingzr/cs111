@@ -237,7 +237,11 @@ int main(int argc, char *argv[])
   int h;
   for (h=0; h<num_list; h++)
   {
-    list[h] = {&list[h], &list[h], NULL};
+    //list[h] = {&list[h], &list[h], NULL};
+    list[h].prev = &list[h];
+    list[h].next = &list[h];
+    list[h].key = NULL;
+
   }
   
   //initialize all the node needed
