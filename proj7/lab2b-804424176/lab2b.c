@@ -12,8 +12,6 @@
 
 long num_thread=1;
 long num_iteration=1;
-long num_list=1;
-
 int operations = 1;
 int opt_yield = 0;
 char* temperal;
@@ -21,9 +19,7 @@ char* temperal;
 int locker = 0;
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 SortedListElement_t *element;
-//decalre an array of list
-SortedList_t * list; 
-//= {&list, &list, NULL};
+SortedList_t list = {&list, &list, NULL};
 char *keys;
 //initialize a longlong counter to 0
 long long counter = 0;
@@ -49,72 +45,45 @@ struct timespec diff(struct timespec start, struct timespec end)
   return temp;
 }
 
-/*
-  return the header number
-*/
-int hash_key (char* key)
-{
-  int sum;
-  int i=0;
-  for (i=0; i<5; i++)
-  {
-    sum+=key[i];
-  }
-
-  return sum % num_list;
-}
-
 void* thread_func(void* argc)
 {
   int i;
   //insert 
   for (i = *(int*)argc; i < operations; i += num_thread) 
   {
-
     if (sync_s == 'm')
     {
       pthread_mutex_lock(&lock);
-      SortedList_insert(&list[hash_key(element[i].key)], &element[i]);
+      SortedList_insert(&list, &element[i]);
       pthread_mutex_unlock(&lock);
     }
     else if (sync_s=='s')
     {
       while (__sync_lock_test_and_set(&locker, 1));
-        SortedList_insert(&list[hash_key(element[i].key)], &element[i]);
+        SortedList_insert(&list, &element[i]);
         __sync_lock_release(&locker);
     }
     else
     {
-      SortedList_insert(&list[hash_key(element[i].key)], &element[i]);
+      SortedList_insert(&list, &element[i]);
     }
   }
-  int b;
   //get the length
   if (sync_s=='m')
   {
     pthread_mutex_lock(&lock);
-
-    for (b=0; b<num_list; b++)
-    {
-      SortedList_length(&list[b]);
-    }
+    SortedList_length(&list);
     pthread_mutex_unlock(&lock);
   }
   else if (sync_s=='s')
   {
     while (__sync_lock_test_and_set(&locker, 1));
-    for (b=0; b<num_list; b++)
-    {
-      SortedList_length(&list[b]);
-    }
+    SortedList_length(&list);
     __sync_lock_release(&locker);
   }
   else
   {
-    for (b=0; b<num_list; b++)
-    {
-      SortedList_length(&list[b]);
-    }
+    SortedList_length(&list);
   }
 
   //lookup and delete.
@@ -125,20 +94,20 @@ void* thread_func(void* argc)
       if (sync_s=='m')
       {
         pthread_mutex_lock(&lock);
-        node_deleted = SortedList_lookup(&list[hash_key(element[i].key)], element[i].key);
+        node_deleted = SortedList_lookup(&list, element[i].key);
         SortedList_delete(node_deleted);
         pthread_mutex_unlock(&lock);
       } 
       else if (sync_s=='s')
       {
         while (__sync_lock_test_and_set(&locker, 1));
-        node_deleted = SortedList_lookup(&list[hash_key(element[i].key)], element[i].key);
+        node_deleted = SortedList_lookup(&list, element[i].key);
         SortedList_delete(node_deleted);
         __sync_lock_release(&locker);
       }
       else
       {
-        node_deleted = SortedList_lookup(&list[hash_key(element[i].key)], element[i].key);
+        node_deleted = SortedList_lookup(&list, element[i].key);
         
         SortedList_delete(node_deleted);
       }
@@ -161,7 +130,6 @@ int main(int argc, char *argv[])
           {"yield",  required_argument, 0, 'y'},
           {"iterations",  required_argument, 0, 'i'},
           {"sync",  required_argument, 0, 's'},
-          {"lists",  required_argument, 0, 'l'}
           
           {0, 0, 0, 0}
         };
@@ -192,10 +160,6 @@ int main(int argc, char *argv[])
 
         case 's':
           sync_s = optarg[0];
-          break;
-
-        case 'l':
-          num_list = atoi(optarg);
           break;
 
         case 'y':
@@ -229,16 +193,6 @@ int main(int argc, char *argv[])
 
         }
     }
-
-  //initialize the list headers
-
-  list = (SortedList_t *) malloc (num_list*sizeof(SortedList_t));
-
-  int h;
-  for (h=0; h<num_list; h++)
-  {
-    list[h] = {&list[h], &list[h], NULL};
-  }
   
   //initialize all the node needed
   operations = num_thread * num_iteration;

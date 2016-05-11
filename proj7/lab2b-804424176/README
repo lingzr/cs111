@@ -1,0 +1,22 @@
+Tao Xiang
+804424176
+
+I'd like to use 4 slip days
+
+
+
+
+
+
+Questions:
+2B.1A:
+=insert, lookup and delete are all O(n) operations so when the number of iterations goes up, the time per operation will incrase
+=>the reason time per operation drop first is due to the function overhead. 
+
+
+2B.1B: 
+divide the time per operation by the numer of threads
+
+2B.2A:
+=>observation: the probability of racing increased
+=>since we are using the linked list, the size of critical section increase, so a single thread will hold the locker much longer.
