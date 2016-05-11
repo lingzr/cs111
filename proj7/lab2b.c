@@ -312,7 +312,7 @@ int main(int argc, char *argv[])
     sum_length+=SortedList_length(&list[q]);
   }
   if (sum_length!=0)
-  fprintf(stderr,"ERROR: final count = %lld\n", counter);
+  fprintf(stderr,"ERROR: final count = %lld\n", sum_length);
 
 
 
