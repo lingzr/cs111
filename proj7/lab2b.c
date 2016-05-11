@@ -97,6 +97,7 @@ void* thread_func(void* argc)
     for (b=0; b<num_list; b++)
     {
       SortedList_length(&list[b]);
+      printf("%d\n",SortedList_length(&list[b]) );
     }
     pthread_mutex_unlock(&lock);
   }
