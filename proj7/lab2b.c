@@ -54,7 +54,7 @@ struct timespec diff(struct timespec start, struct timespec end)
 */
 int hash_key (const char* key)
 {
-  int sum;
+  int sum=0;
   int i=0;
   for (i=0; i<5; i++)
   {
@@ -68,7 +68,7 @@ void* thread_func(void* argc)
 {
   int i;
   //insert 
-  printf("%d\n", *(int*)argc);
+  //printf("%d\n", *(int*)argc);
   for (i = *(int*)argc; i < operations; i += num_thread) 
   {
 
