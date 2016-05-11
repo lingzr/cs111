@@ -52,7 +52,7 @@ struct timespec diff(struct timespec start, struct timespec end)
 /*
   return the header number
 */
-int hash_key (char* key)
+int hash_key (const char* key)
 {
   int sum;
   int i=0;
