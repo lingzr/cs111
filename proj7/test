@@ -30,4 +30,4 @@ echo spinlock
 ./lab2b --threads=10 --iterations=1000 --yield=id --sync=s --lists=13
 
 echo unprotected
-./lab2b --threads=1 --iterations=1000 --yield=id --sync=s --lists=10
+./lab2b --threads=1 --iterations=1000 --yield=id --sync=s --lists=1
