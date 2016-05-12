@@ -304,19 +304,19 @@ int main(int argc, char *argv[])
   int elapsed_time = diff(requestStart, requestEnd).tv_nsec;
 
   //print discription
-  // printf("%ld threads x %ld iterations x (insert + lookup/delete) = %ld operations\n",  num_thread, num_iteration, operations*2);
-  // printf("elapsed time: %dns\n", elapsed_time);
-  // printf("per operation: %ldns\n", elapsed_time/operations/2);
-  // int q;
-  // int sum_length=0;
-  // for (q=0; q<num_list; q++)
-  // {
-  //   sum_length+=SortedList_length(&list[q]);
-  // }
-  // if (sum_length!=0)
-  // fprintf(stderr,"ERROR: final count = %lld\n", sum_length);
+  printf("%ld threads x %ld iterations x (insert + lookup/delete) = %ld operations\n",  num_thread, num_iteration, operations*2);
+  printf("elapsed time: %dns\n", elapsed_time);
+  printf("per operation: %ldns\n", elapsed_time/operations/2);
+  int q;
+  int sum_length=0;
+  for (q=0; q<num_list; q++)
+  {
+    sum_length+=SortedList_length(&list[q]);
+  }
+  if (sum_length!=0)
+  fprintf(stderr,"ERROR: final count = %lld\n", sum_length);
 
-  printf("%d\n", elapsed_time/operations/2);
+  //printf("%d\n", elapsed_time/operations/2);
 
 
 
