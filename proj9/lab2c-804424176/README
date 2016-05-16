@@ -1,0 +1,94 @@
+Tao Xiang
+804424176
+
+
+i’d like to use 2 slip days
+
+
+
+2C.1A:
+=>number of thread is constant
+=>when the number of list goes up, the length of the list will go down, the time for look up and insert o(n) will take less time
+=>the time for the critical section goes down, less race
+=>so time per operation goes down
+
+2C.1B: 
+=>when we change the ratio, number of thread can still stay contant,
+=>so we nneed to know the number of threads or the number of list.
+
+
+2C.2A:
+=>when the number of operaion remains the same, the more lists, the lenght of the list gets shorter.
+=>then the lookup time and insert will be faster o(n)
+
+
+2C.2B:
+=>the time for the function call should be the same.
+=>the diference is the locking mechanism, but since they are all linkedlist, the inside function should be the same.
+
+2C.3A:
+=>we need to prevent the interruption between checking the call the pthread_cond_wait and checking the condition.
+=>the reason is there is a chance that the codition variable is changed but the function is not called.
+
+2C.3B:
+
+=>if a thread is asleep, there is a chance it holds a lock that other thread can't change the conditional variable, thus this thread will never be wake up. it caused a deadlock.
+
+2C.3C:
+=>we need to prevent the interruption between checking the call the pthread_cond_wait and checking the condition.
+=>the reason is there is a chance that the codition variable is changed but the function is not called.
+=>the thread suppose to go sleep but it continues to run. it caused a synchronization bug
+
+2C.3D:
+=>we need to prevent the interruption between checking the call the pthread_cond_wait and checking the condition.
+=>if interrupted there is a chace that other thread send the wake up signal before this thread sleep. thus this thread will never wake up
+
+2C.3E:
+No.
+=>the only way to prevent it is to use the kernal mode. 
+
+
+
+single list , no protection
+# of (inert, lookup, delete) = threads* iterations
+# of length = threads+1
+
+when # of iterations is small, the most time is spend on overhead.
+when # of iterations is big, hte ost tiem is on inert, lookup
+ %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 58.34      0.12     0.13    10000    12.04    12.05  SortedList_insert
+ 47.24      0.25     0.13    10000    13.23    13.06  SortedList_lookup
+  0.00      0.25     0.00    10000     0.00     0.00  SortedList_delete
+  0.00      0.25     0.00        2     0.00     0.00  SortedList_length
+
+
+
+# of (inert, lookup, delete) = threads* iterations
+# of length = (threads+1)*list
+
+when # of iterations is small, the most time is spend on overhead.
+for mutex:
+when # of iterations is big, hte ost tiem is on inert, lookup
+for spinlock:
+when # of iterations is big, hte ost tiem is on spin function
+
+Mutex, 3 threads, 5 lists, 10000 iterations:
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 53.61      0.38     0.38    29380    12.96    12.23  SortedList_lookup
+ 46.56      0.71     0.33    29787    11.10    13.20  SortedList_insert
+  0.00      0.71     0.00    29454     0.00     0.00  SortedList_delete
+  0.00      0.71     0.00       20     0.00     0.00  SortedList_length
+Spinlock, 3 threads, 5 lists, 10000 iterations:
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 42.34      0.73     0.76                             thread_func
+ 25.34      1.23     0.36    22434    13.07    14.03  SortedList_insert
+ 22.34      1.43     0.34    23523    14.55    12.45  SortedList_lookup
+  0.00      1.43     0.00    25432     0.00     0.00  SortedList_delete
+  0.00      1.43     0.00       20     0.00     0.00  SortedList_length
+
+
+
+
