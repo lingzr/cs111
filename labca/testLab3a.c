@@ -322,7 +322,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 				*(uint32_t*)(ptr_1),
 				name);
 		ptr_1 = ptr_1+size;
-		
+		i=i+size;
 
 	}
 }
