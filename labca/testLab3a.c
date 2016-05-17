@@ -189,7 +189,7 @@ struct group_des  gd;
 typedef struct group_des* group_des_t;
 
 
-int load_groupDes_block(group_des_t groupDes,int fd,int groupDesNumber,FILE* bitMapStream,FILE* inodeStream){
+int load_groupDes_block(group_des_t groupDes,int fd,int groupDesNumber,FILE* bitMapStream,FILE* inodeStream, FILE* directoryStream){
 	void* blockBuffer = malloc(s.blockSize);
 	pread(fd,blockBuffer,s.blockSize,(s.firstBlock+1)*s.blockSize+(32*groupDesNumber));
 	uint32_t* ptr4=blockBuffer;
@@ -243,6 +243,19 @@ int load_groupDes_block(group_des_t groupDes,int fd,int groupDesNumber,FILE* bit
 				//printf("number od inodes in bg:%d,inode number:%d",groupDes->nInodes,i+j+1);
 				load_inode (&in,fd, groupDes->inodeTableBlock, i+j+1,groupDesNumber);
 				print_inode (&in, inodeStream);
+				/*
+				*	if the inode is of a directory type traverse the block registered under that inode
+				*/
+				int k;
+				//iteraate all the associated blocks belong to the inode
+				for (k=0; k<in.nblocks; k++)
+				{
+					//containt the whole block 
+					void* directory_entry_Buffer = malloc(s.blockSize);
+					pread(fd,directory_entry_Buffer,s.blockSize,(in.block_ptr[k])*s.blockSize);
+					//call a function to take in a block and print out the result
+					print_directory_entry(directory_entry_Buffer, directoryStream);
+				}
 			}
 			else{
 				fprintf(bitMapStream, "%x,%d\n", groupDes->inodeMapBlock,i+j+1+groupDesNumber*(s.inodesPerGroup));
@@ -268,6 +281,44 @@ void print_groupDes_wrapper(group_des_t groupDes,int fd){
 
 
 //-----------------------------------------------------------------------------------
+// struct directory_entry
+// {
+// 	int paretn_inode_number;
+// 	int entry_number;
+// 	int entry_length;
+// 	int name_length;
+// 	int inode_number_of_file_entry;
+// 	char* name;	
+// };
+
+// typedef struct directory_entry* directory_entry_t;
+
+
+
+int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
+{
+	uint8_t* ptr_1 = (uint8_t*) directory_entry_Buffer;
+	int i=0;
+	for (i=0; i<s.blockSize; i++)
+	{
+		//the size of the directory entry
+		int size = *(uint16_t*)(ptr_1+4);
+		char* name = (char*)malloc(sizeof(char)* (*(ptr_1+6)) );
+		name = ptr_1+8;
+
+		fprintf(directoryStream, "%d %d %d %d %d %d %s\n",
+				1,
+				1,
+				*(uint16_t*)(ptr_1+4),
+				*(ptr_1+6),
+				*(uint32_t*)(ptr_1),
+				name);
+		ptr_1 = ptr_1+size;
+		
+
+	}
+}
+
 
 //-----------------------------------------------------------------------------------
 int main(){
