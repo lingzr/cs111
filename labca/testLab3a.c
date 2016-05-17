@@ -305,7 +305,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 	uint8_t* ptr_1 = (uint8_t*) directory_entry_Buffer;
 	int i=0;
 	int entryNumber=0;
-	for (i=0; i<s.blockSize; )
+	for (i=0; i<1024; )
 	{
 		//the size of the directory entry
 		int size = *(uint16_t*)(ptr_1+4);
