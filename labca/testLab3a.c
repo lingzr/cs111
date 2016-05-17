@@ -311,7 +311,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 			name[k]=*(ptr_1+8+k);
 			//printf("%c\n",name[k] );
 		}
-		printf("%s\n",name );
+		printf("%d\n",name_size );
 
 		fprintf(directoryStream, "%d %d %d %d %d %d %s\n",
 				1,
