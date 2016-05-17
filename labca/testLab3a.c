@@ -246,17 +246,21 @@ int load_groupDes_block(group_des_t groupDes,int fd,int groupDesNumber,FILE* bit
 				/*
 				*	if the inode is of a directory type traverse the block registered under that inode
 				*/
-				int k;
-				//iteraate all the associated blocks belong to the inode
-				for (k=0; k<in.nblocks; k++)
+				if (in.file_type=='d')
 				{
-					//containt the whole block 
-					void* directory_entry_Buffer = malloc(s.blockSize);
-					pread(fd,directory_entry_Buffer,s.blockSize,(in.block_ptr[k])*s.blockSize);
-					//call a function to take in a block and print out the result
-					print_directory_entry(directory_entry_Buffer, directoryStream);
-					printf("%d\n", k);
+					int k;
+					//iteraate all the associated blocks belong to the inode
+					for (k=0; k<in.nblocks; k++)
+					{
+						//containt the whole block 
+						void* directory_entry_Buffer = malloc(s.blockSize);
+						pread(fd,directory_entry_Buffer,s.blockSize,(in.block_ptr[k])*s.blockSize);
+						//call a function to take in a block and print out the result
+						print_directory_entry(directory_entry_Buffer, directoryStream);
+						//printf("%d\n", k);
+					}
 				}
+				
 			}
 			else{
 				fprintf(bitMapStream, "%x,%d\n", groupDes->inodeMapBlock,i+j+1+groupDesNumber*(s.inodesPerGroup));
