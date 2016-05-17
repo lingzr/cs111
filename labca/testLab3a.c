@@ -320,7 +320,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream, i
 		//printf("%d\n",name_size );
 		name[name_size]='\0';
 
-		//if (*(uint32_t*)(ptr_1)!=0)
+		if (*(uint32_t*)(ptr_1)!=0)
 		{
 
 			fprintf(directoryStream, "%d %d %d %d %d \"%s\"\n",
@@ -334,7 +334,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream, i
 		}
 		ptr_1 = ptr_1+size;
 		i=i+size;
-		printf("i:%d size:%d\n",i, size );
+		//printf("i:%d size:%d\n",i, size );
 		entryNumber++;
 
 	}
