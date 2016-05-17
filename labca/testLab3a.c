@@ -316,7 +316,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 
 		fprintf(directoryStream, "%d %d %d %d %d %s\n",
 				1,
-				1,
+				k,
 				*(uint16_t*)(ptr_1+4),
 				*(ptr_1+6),
 				*(uint32_t*)(ptr_1),
