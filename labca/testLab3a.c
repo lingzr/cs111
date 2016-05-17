@@ -256,7 +256,7 @@ int load_groupDes_block(group_des_t groupDes,int fd,int groupDesNumber,FILE* bit
 						void* directory_entry_Buffer = malloc(s.blockSize);
 						pread(fd,directory_entry_Buffer,s.blockSize,(in.block_ptr[k])*s.blockSize);
 						//call a function to take in a block and print out the result
-						print_directory_entry(directory_entry_Buffer, directoryStream);
+						print_directory_entry(directory_entry_Buffer, directoryStream, in.ninode);
 						//printf("%d\n", k);
 					}
 				}
@@ -300,7 +300,7 @@ void print_groupDes_wrapper(group_des_t groupDes,int fd){
 
 
 
-int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
+int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream, int block_num)
 {
 	uint8_t* ptr_1 = (uint8_t*) directory_entry_Buffer;
 	int i=0;
@@ -324,7 +324,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 		{
 
 			fprintf(directoryStream, "%d %d %d %d %d \"%s\"\n",
-					1,
+					block_num,
 					entryNumber,
 					*(uint16_t*)(ptr_1+4),
 					*(ptr_1+6),
