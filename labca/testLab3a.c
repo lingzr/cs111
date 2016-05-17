@@ -331,18 +331,21 @@ int main(){
 	printf("-----group.csv-----\n");
 	printf("-----bitmap.csv-----\n");
 	printf("-----inode.csv-----\n");
+	printf("-----directory.csv-----\n");
 	int fd_groupDes=creat("group.csv",S_IRUSR|S_IWUSR);
 	int fd_bitMap=creat("bitmap.csv",S_IRUSR|S_IWUSR);
 	int fd_inode=creat("inode.csv",S_IRUSR|S_IWUSR);
+	int fd_directory=creat("directory.csv",S_IRUSR|S_IWUSR);
 	FILE* inodeStream =fdopen(fd_inode,"w");
 	FILE* bitMapStream =fdopen(fd_bitMap,"w");
+	FILE* directoryStream =fdopen(fd_directory,"w");
 	int nBlockDes=s.nBlocks/s.blocksPerGroup;
 	if(s.nBlocks%s.blocksPerGroup>0){
 		nBlockDes++;
 	}
 	int i=0;
 	for(i=0;i<nBlockDes;i++){
-		load_groupDes_block(&gd,fd,i,bitMapStream,inodeStream);
+		load_groupDes_block(&gd,fd,i,bitMapStream,inodeStream,directoryStream );
 		print_groupDes_wrapper(&gd,fd_groupDes);		
 	}
 	
