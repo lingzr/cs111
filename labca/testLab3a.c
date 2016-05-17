@@ -255,6 +255,7 @@ int load_groupDes_block(group_des_t groupDes,int fd,int groupDesNumber,FILE* bit
 					pread(fd,directory_entry_Buffer,s.blockSize,(in.block_ptr[k])*s.blockSize);
 					//call a function to take in a block and print out the result
 					print_directory_entry(directory_entry_Buffer, directoryStream);
+					printf("%d\n", k);
 				}
 			}
 			else{
