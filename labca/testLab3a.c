@@ -299,6 +299,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 {
 	uint8_t* ptr_1 = (uint8_t*) directory_entry_Buffer;
 	int i=0;
+	int entryNumber=0;
 	for (i=0; i<s.blockSize; i++)
 	{
 		//the size of the directory entry
@@ -316,13 +317,14 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 
 		fprintf(directoryStream, "%d %d %d %d %d %s\n",
 				1,
-				i,
+				entryNumber,
 				*(uint16_t*)(ptr_1+4),
 				*(ptr_1+6),
 				*(uint32_t*)(ptr_1),
 				name);
 		ptr_1 = ptr_1+size;
 		i=i+size;
+		entryNumber++;
 
 	}
 }
