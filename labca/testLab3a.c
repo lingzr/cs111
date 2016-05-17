@@ -314,7 +314,7 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 		//printf("%d\n",name_size );
 		name[name_size]='\0';
 
-		fprintf(directoryStream, "%d %d %d %d %d %d %s\n",
+		fprintf(directoryStream, "%d %d %d %d %d %s\n",
 				1,
 				1,
 				*(uint16_t*)(ptr_1+4),
