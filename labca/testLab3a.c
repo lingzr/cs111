@@ -304,22 +304,23 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream)
 		//the size of the directory entry
 		int size = *(uint16_t*)(ptr_1+4);
 		int name_size = *(ptr_1+6);
-		char* name = (char*) malloc (sizeof(char)* name_size);
+		char* name = (char*) malloc (sizeof(char)* (name_size+1));
 		int k=0;
 		for (k; k<name_size; k++)
 		{
 			name[k]=*(ptr_1+8+k);
-			printf("%c\n",name[0] );
+			//printf("%c\n",name[0] );
 		}
 		//printf("%d\n",name_size );
+		name[name_size]='\0';
 
-		fprintf(directoryStream, "%d %d %d %d %d %d %c\n",
+		fprintf(directoryStream, "%d %d %d %d %d %d %s\n",
 				1,
 				1,
 				*(uint16_t*)(ptr_1+4),
 				*(ptr_1+6),
 				*(uint32_t*)(ptr_1),
-				name[0]);
+				name);
 		ptr_1 = ptr_1+size;
 		
 
