@@ -408,8 +408,8 @@ int print_directory_entry(void* directory_entry_Buffer, FILE* directoryStream, i
 }
 
 //-----------------------------------------------------------------------------------
-int main(){
-	int fd=open("disk-image",O_RDONLY);
+int main(int argc, char *argv[]){
+	int fd=open(argv[1], O_RDONLY);
 	printf("-----super.csv-----\n");
 	int fd_super=creat("super.csv",S_IRUSR|S_IWUSR);
 	load_super_block(&s,fd);

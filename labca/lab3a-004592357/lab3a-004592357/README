@@ -1,0 +1,16 @@
+LAb3A
+
+Hanwen Wang: 004592357 
+Tao Xiang: 804424176
+
+
+Included files:
+
+README: a brief intro for this project
+Makefile: use make to complie the project and use make dist to make a tarbol file 
+lab3a.c: source code of project lab3a, which can do a basic analysis of a disk image.
+
+We need to use 1 slip day for this project. 
+
+
+
