@@ -192,9 +192,41 @@ def missing_inode():
 	return
 
 def incorrect_link_count():
+	true_link_count={}
+	for directory in directory_list:
+
+		if len(directory.split(',')) == 6:		
+			if int(directory.split(',')[4]) not in true_link_count:
+				true_link_count[int(directory.split(',')[4])] = 1
+			else:
+				true_link_count[int(directory.split(',')[4])]=true_link_count[int(directory.split(',')[4])]+1
+
+	for inode in inode_list:	
+		if int(inode.split(',')[0]) in true_link_count and int (inode.split(',')[5]) != int (true_link_count[ int(inode.split(',')[0]) ]):
+			print 'LINKCOUNT < %d > IS < %d > SHOULD BE < %d >'%(int(inode.split(',')[0]), int(inode.split(',')[5]), true_link_count[14])
+
 	return
 
 def incorrect_directory_entry():
+	current_parent_pair={}
+	
+	
+	for directory in directory_list:
+		if (len(directory.split(',')) == 6) and ((directory.split(',')[5]!='"."\n') and (directory.split(',')[5]!='".."\n')):
+			current_parent_pair[int(directory.split(',')[4])]=int(directory.split(',')[0])
+
+	#print current_parent_pair
+	for directory in directory_list:
+		#print '%s'%( directory.split(',')[5])
+		if (len(directory.split(',')) == 6) and (( directory.split(',')[5] == '"."\n')):
+			
+			if int (directory.split(',')[0])!= int(directory.split(',')[4]):
+				print 'INCORRECT ENTRY IN < %d > NAME < . > LINK TO < %d > SHOULD BE < %d >'%(int(directory.split(',')[0]), int(directory.split(',')[4]), int(directory.split(',')[0]))
+		elif (len(directory.split(',')) == 6) and ((directory.split(',')[5]=='".."\n')):
+			#print current_parent_pair[directory.split(',')[0]]
+			if int(directory.split(',')[0])!= 2 and int (directory.split(',')[4]) != current_parent_pair[int(directory.split(',')[0])]:
+				print 'INCORRECT ENTRY IN < %d > NAME < .. > LINK TO < %d > SHOULD BE < %d >'%(int(directory.split(',')[0]), int(directory.split(',')[4]), current_parent_pair[int(directory.split(',')[0])] )
+
 	return
 
 def invalid_block_pointer():
